@@ -1,0 +1,68 @@
+#homeBartop{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#homeBartopContainer{
+    margin-top: 20px;
+    width: 98%;
+    background-color: #333333;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    /* padding-left: 30px; */
+    padding: 0 50px;
+    /* padding-right: 30px; */
+}
+
+.profileImage{
+    width: 45px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.profileImage:hover{
+    filter: brightness(0.9);
+}
+
+#gameNameText{
+    font-size: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #E5C451;
+    text-align: center;
+    font-family: pierSansBold;
+}
+
+#topTableIcon{
+    width: 45px;
+    filter: invert(91%) sepia(86%) saturate(642%) hue-rotate(325deg) brightness(92%) contrast(94%);
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 601px){
+    #homeBartopContainer{
+        margin-top: 0;
+        width: 100%;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}
+
+@media only screen and (max-width: 601px){
+    #homeBartopContainer{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media only screen and (max-height: 601px){
+    #homeBartopContainer{
+        margin-top: 0;
+        width: 100%;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}

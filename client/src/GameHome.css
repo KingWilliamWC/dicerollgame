@@ -1,0 +1,92 @@
+#gameHome{
+    height: 100%;
+}
+
+.centreButtonsContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -125%);
+}
+
+.buttonContainer:nth-child(2){
+    margin-top: 20px;
+}
+.buttonContainer{
+    width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.buttonContainer p {
+    font-family: PierSansBold;
+    font-size: 20px;
+    color: #333333;
+}
+
+.buttonContainer:hover{
+    transform: scale(1.01);
+}
+
+.buttonRed{
+    background-color: #E94F64;
+}
+
+.buttonBlue{
+    background-color: #46BCDE;
+}
+
+#noFriendsContainer{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%,0);
+    background-color: #333333;
+    text-align: center;
+    height: 150px;
+    width: 700px;
+}
+
+#noFriendsTitle{
+    color: #E5C451;
+    font-family: PierSansBold;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+#playAgainstTheComputerText{
+    color: #46BCDE;
+    cursor: pointer;
+    margin-top: 45px;
+}
+
+@media only screen and (max-width: 800px){
+    #noFriendsContainer{
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 601px){
+    .buttonContainer{
+        width: 90%;
+    }
+
+    #noFriendsContainer{
+        height: 110px;
+    }
+
+    #noFriendsTitle{
+        margin-top: 10px;
+    }
+
+    #playAgainstTheComputerText{
+        margin-top: 30px;
+    }
+}

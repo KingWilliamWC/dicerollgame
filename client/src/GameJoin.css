@@ -1,0 +1,97 @@
+#gameJoinContainer{
+    padding-top: 20px;
+}
+
+#gameJoinTitle{
+    text-align: center;
+}
+#gameIDText{
+    font-size: 40px;
+    color: #B3B8BC;
+}
+
+#gameJoinUsersContainer{
+    position: absolute;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    display: flex;
+    width: 90%;
+}
+
+/* .gameJoinUserLeft{
+    margin-left: auto;
+} */
+
+#gameJoinVsLine{
+    width: 5px;
+    height: calc(var(--vh, 1vh) * 80);
+    background-color: #B3B8BC;
+}
+
+.gameJoinUser{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    width: 100%;
+}
+
+#gameIDValue{
+    font-family: pierSansBold;
+    letter-spacing: 3px;
+    color: #E5C451;
+}
+
+.gameJoinProfileImage{
+    width: 125px;
+    margin-bottom: 75px;
+}
+
+#gameJoinVsCentre{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gameJoinProfileName{
+    font-family: pierSansBold;
+    color: #B3B8BC;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.notReadyText, .readyText {
+    font-size: 20px;
+    font-family: pierSansBold;
+}
+
+.notReadyText{
+    color: #333333;
+}
+
+.readyText{
+    color: #52D273;
+}
+
+#gameJoinVsCircle{
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    background-color: #484848;
+    border: 1px solid #B3B8BC;
+    border-radius: 360px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+}
+
+#gameJoinVsCircle p {
+    color: #E94F64;
+    font-size: 25px;
+    font-family: pierSansBold;
+}

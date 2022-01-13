@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
+@font-face {
+    font-family: pierSansRegular;
+    src: url(./Fonts/PierSans-Regular.otf);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+    font-family: pierSansBold;
+    src: url(./Fonts/PierSans-Bold.otf);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#root, #app{
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* whole body structure */
+*{
+    margin: 0;
+    box-sizing: border-box;
 }
 
-.App-link {
-  color: #61dafb;
+body{
+    background-color: #484848;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p, button, a, h1, h2, h3, h4, h5, h6{
+    font-family: pierSansRegular, sans-serif;
+    text-rendering: optimizeLegibility;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+input:focus::placeholder {
+    color: transparent;
+}
+
+#gameJoinInputContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#gameIDInputTitleText{
+    color: #B3B8BC;
+    font-size: 23px;
+    font-family: pierSansBold;
+    margin-bottom: 10px;
 }

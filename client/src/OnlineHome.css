@@ -1,0 +1,45 @@
+#onlinehome{
+    height: 100%;
+}
+
+.selectionText{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 25%;
+    text-align: center;
+    font-size: 35px;
+    font-family: pierSansBold;
+    color: #52D273;
+}
+
+.hide{
+    display: none;
+}
+
+#gameIdInput{
+    background-color: #333333;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #E5C451;
+    height: 45px;
+    width: 425px;
+    font-size: 20px;
+    font-family: pierSansRegular;
+    outline: none;
+    transition: all 0.1s;
+}
+
+.buttonContainerCenter{
+    align-self: center;
+    position: relative;
+    top: 30px;
+    width: 200px;
+}
+
+@media only screen and (max-width: 601px){
+    #gameIdInput{
+        width: 90vw;
+    }
+}
