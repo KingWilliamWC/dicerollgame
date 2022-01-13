@@ -7,12 +7,13 @@
 var app = require('../app');
 var debug = require('debug')('template:server');
 var http = require('http');
+const { Server } = require("socket.io");
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '80');
+var port = normalizePort(process.env.PORT || '81');
 app.set('port', port);
 
 /**
@@ -20,6 +21,13 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*" //allow anyone from any domain to connect
+  }
+});
+
+const socketioRoutes = require('../routes/socketio')(io);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -34,7 +42,7 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  var port = parseInt(val, 10); // that's base 10 number formatting
 
   if (isNaN(port)) {
     // named pipe

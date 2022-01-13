@@ -27,7 +27,7 @@ class AppRouter extends Component {
                 <Routes>
                     <Route exact path='/'element={<GameHome routes={routes}/>} />
                     <Route exact path='/online' element={<OnlineHome routes={routes}/>} />
-                    <Route exact path='/join' element={<GameJoin/>}/>
+                    <Route exact path='/lobby' element={<GameJoin/>}/>
                 </Routes>
             </Router>
         )

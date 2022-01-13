@@ -24,8 +24,12 @@ class OnlineHome extends Component{
         if(userID.trim().length === 6){
             // this is to access on join game
             sessionStorage.setItem('gameid', userID);
-            window.location.href = `/join`;
+            window.location.href = `/lobby`;
         }
+    }
+
+    onCreateGame = () => {
+        window.location.href = `/lobby`;
     }
     render(){
         return(
@@ -36,7 +40,7 @@ class OnlineHome extends Component{
                     <a onClick={() => this.onStartJoinGame()} className="buttonContainer buttonRed">
                         <p>Join Game</p>
                     </a>
-                    <a className="buttonContainer buttonBlue">
+                    <a onClick={() => this.onCreateGame()} className="buttonContainer buttonBlue">
                         <p>Create Game</p>
                     </a>
                 </div>
