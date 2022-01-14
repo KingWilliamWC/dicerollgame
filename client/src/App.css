@@ -1,4 +1,9 @@
 @font-face {
+    font-family: pierSansLight;
+    src: url(./Fonts/PierSans-Light.otf);
+}
+
+@font-face {
     font-family: pierSansRegular;
     src: url(./Fonts/PierSans-Regular.otf);
 }

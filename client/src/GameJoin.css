@@ -29,7 +29,7 @@
     background-color: #B3B8BC;
 }
 
-.gameJoinUser{
+.gameJoinUser, .noUserContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -94,4 +94,10 @@
     color: #E94F64;
     font-size: 25px;
     font-family: pierSansBold;
+}
+
+.noUserText{
+    color: #E5C451;
+    font-family: pierSansBold;
+    font-size: 20px;
 }

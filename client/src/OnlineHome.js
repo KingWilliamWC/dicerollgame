@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import HomeBartop from "./HomeBartop";
 
@@ -24,12 +25,24 @@ class OnlineHome extends Component{
         if(userID.trim().length === 6){
             // this is to access on join game
             sessionStorage.setItem('gameid', userID);
-            window.location.href = `/lobby`;
+            window.location.href = `/lobby?jointype=join`;
         }
     }
 
+    async getNewGameID(){
+        const res = await axios.post(`http://192.168.2.37:81/api/newgameid`);
+        return await res.data;
+    }
+
     onCreateGame = () => {
-        window.location.href = `/lobby`;
+        this.getNewGameID()
+        .then(data => {
+            if(data.success){
+                sessionStorage.setItem('gameid', data.newGameID);
+                window.location.href = `/lobby?jointype=create`;
+            }
+        })
+        
     }
     render(){
         return(

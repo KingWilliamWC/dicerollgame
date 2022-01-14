@@ -1,0 +1,101 @@
+.diceRollGameRegisterLogo{
+    font-size: 40px;
+    padding-top: 20px;
+    font-family: pierSansBold;
+    color: #E5C451;
+    text-align: center;
+}
+
+.registrationContainer{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    background-color: #333333;
+    padding: 10px 50px 20px 50px;
+}
+
+#loginInputsContainer{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.registerInput{
+    height: 40px;
+    background-color: #484848;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+    font-family: pierSansRegular;
+    font-size: 20px;
+    color: #B3B8BC;
+}
+
+.registerInputPassword{
+    font-family: sans-serif;
+}
+
+.registerInput::placeholder{
+    color: #333333;
+    font-family: pierSansBold;
+}
+
+#usernameInput, #userPassword, #confirmPassword{
+    margin-bottom: 30px;
+}
+
+#loginPassword{
+    margin-top: 30px;
+}
+
+.erroTextCenter{
+    text-align: center;
+    position: relative;
+    bottom: 20px;
+}
+
+.registerTabTitle{
+    text-align: center;
+    color: #46BCDE;
+    font-size: 30px;
+    font-family: pierSansBold;
+    margin-bottom: 60px;
+}
+
+.registerButtonContainer{
+    margin-top: 50px;
+}
+
+.buttonYellow{
+    background-color: #E5C451;
+}
+
+.errorText{
+    color: #E94F64;
+    font-family: pierSansLight;
+    margin-bottom: 3px;
+}
+
+
+.errorHide, .registrationContainerHide{
+    display: none;
+}
+
+.registerTextContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.registerTextTitle{
+    color: #B3B8BC;
+    font-size: 18px;
+}
+
+.registerTextLink{
+    color: #46BCDE;
+    margin-top: 10px;
+    cursor: pointer;
+}
