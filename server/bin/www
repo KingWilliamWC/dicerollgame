@@ -13,7 +13,7 @@ const { Server } = require("socket.io");
  * Get port from environment and store in Express.
 */
 
-var port = normalizePort(process.env.PORT || '81');
+var port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 
 /**
