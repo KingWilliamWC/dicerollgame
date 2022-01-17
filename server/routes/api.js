@@ -24,6 +24,10 @@ makeid = (length) => {
   return result;
 }
 
+//random number for profile images
+randomIntFromInterval = (min, max) => { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
 
 // Create game and return game id for client use
 router.post('/newgameid', function(req, res, next) {
@@ -34,7 +38,8 @@ router.post('/newgameid', function(req, res, next) {
 // user account routes
 const userSchema = new mongoose.Schema({
   username: String,
-  password: String
+  password: String,
+  profileImage: String,
 });
 
 const User = mongoose.model('User', userSchema);
@@ -46,10 +51,12 @@ router.post('/signup', (req, res) => {
         const newUser = new User({
           username: req.body.username,
           password: hashedPassword,
+          profileImage: `/ProfileImages/${randomIntFromInterval(1, 15)}.png`, // random image in case they close before selecting an image
         }).save((err, newUser) => {
           if(err){res.json({err: 'err'});res.end();}
           else{
-            res.json({'success': true});
+            newUser.password = undefined;
+            res.json({'success': true, 'user': newUser, 'id': newUser._id});
           }
         })
       })
@@ -79,6 +86,19 @@ router.post('/login', (req, res) => {
     }
   })
 })
+
+router.post('/updateProfileImage', (req, res) => {
+  User.findByIdAndUpdate(req.body.id, {profileImage: req.body.newProfileImage}, {new: true} , (err, result) => {
+    if(!err){
+      result.password = undefined;
+      res.json({'success': true, 'user': result});
+    }else{
+      res.json({'success': false})
+    }
+  })
+})
+
+
 
 module.exports = router;
     

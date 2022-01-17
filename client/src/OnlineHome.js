@@ -25,12 +25,12 @@ class OnlineHome extends Component{
         if(userID.trim().length === 6){
             // this is to access on join game
             sessionStorage.setItem('gameid', userID);
-            window.location.href = `/lobby?jointype=join`;
+            window.location.href = `/game?jointype=join`;
         }
     }
 
     async getNewGameID(){
-        const res = await axios.post(`http://192.168.2.37:81/api/newgameid`);
+        const res = await axios.post(this.props.routes.newgameid);
         return await res.data;
     }
 
@@ -39,7 +39,7 @@ class OnlineHome extends Component{
         .then(data => {
             if(data.success){
                 sessionStorage.setItem('gameid', data.newGameID);
-                window.location.href = `/lobby?jointype=create`;
+                window.location.href = `/game?jointype=create`;
             }
         })
         

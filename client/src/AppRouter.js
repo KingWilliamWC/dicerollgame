@@ -7,7 +7,7 @@ import './App.css';
 // component imports
 import GameHome from './GameHome';
 import OnlineHome from './OnlineHome';
-import GameJoin from './GameJoin';
+import GlobalGame from './GlobalGame';
 import Login from './Login';
 import Signup from './Signup';
 
@@ -17,21 +17,22 @@ class AppRouter extends Component {
         document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     }
     render(){
-        var urlBase = 'https://localhost/';
+        var urlBase = 'http://192.168.2.37:81';
         var routes = {
-            'search': `${urlBase}search`,
-            'locationselect': `${urlBase}locationselect`,
-            'area': `${urlBase}area`,
-            'viewrestraunt': `${urlBase}viewrestraunt`
+            'newgameid': `${urlBase}/api/newgameid`,
+            'signup': `${urlBase}/api/signup`,
+            'login': `${urlBase}/api/login`,
+            'updateprofileimage': `${urlBase}/api/updateprofileimage`,
+            'gamesocket': `${urlBase}/`
         }
         return(
             <Router>
                 <Routes>
                     <Route exact path='/'element={<GameHome routes={routes}/>} />
                     <Route exact path='/online' element={<OnlineHome routes={routes}/>} />
-                    <Route exact path='/lobby' element={<GameJoin/>}/>
-                    <Route exact path='/login' element={<Login/>}/>
-                    <Route exact path='/signup' element={<Signup/>}/>
+                    <Route exact path='/game' element={<GlobalGame routes={routes}/>}/>
+                    <Route exact path='/login' element={<Login routes={routes}/>}/>
+                    <Route exact path='/signup' element={<Signup routes={routes}/>}/>
                 </Routes>
             </Router>
         )

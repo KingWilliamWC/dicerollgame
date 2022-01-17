@@ -23,6 +23,7 @@
     border-radius: 3px;
     cursor: pointer;
     transition: all 0.1s;
+    user-select: none;
 }
 
 .buttonContainer p {
@@ -41,6 +42,10 @@
 
 .buttonBlue{
     background-color: #46BCDE;
+}
+
+.buttonGreen{
+    background-color: #52D273;
 }
 
 #noFriendsContainer{

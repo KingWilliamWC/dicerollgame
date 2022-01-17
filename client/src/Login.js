@@ -13,7 +13,7 @@ class Login extends Component{
         }
     }
     async loginUser(sendData){
-        const res = await axios.post(`http://192.168.2.37:81/api/login`, sendData)
+        const res = await axios.post(this.props.routes.login, sendData)
         return await res.data;
     }
     userLogin = () => {
@@ -55,6 +55,7 @@ class Login extends Component{
                         <p className="registerTextTitle">Haven't got an account?</p>
                         <a href="/signup" className="registerTextLink">Sign Up</a>
                     </div>
+                    <p className='copyrightText'>dicerollgame.co.uk &copy; 2022</p>
                 </div>
             </div>
         )

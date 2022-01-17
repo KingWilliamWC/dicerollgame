@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import ProfileImageSelect from "./ProfileImageSelect";
+
 import axios from "axios";
 
 class Signup extends Component{
@@ -17,12 +19,14 @@ class Signup extends Component{
             passwordErrorState: 0,
 
             signupState: 0,
-            signupContainerClasses: ['registrationContainer', 'registrationContainerHide']
+            signupContainerClasses: ['registrationContainer', 'registrationContainerHide'],
+            ProfileImageSelectClasses: ['profileImageSelectHide', 'profileImageSelectShow'],
+            newUserID: null,
         }
     }
 
     async signupUser(sendData){
-        const res = await axios.post(`http://192.168.2.37:81/api/signup`, sendData);
+        const res = await axios.post(this.props.routes.signup, sendData);
         return await res.data;
     }
     userSignup = () => {
@@ -61,13 +65,30 @@ class Signup extends Component{
                             this.setState({userNameErrorState: 1, userNameErrorTextState: 1})
                         }
                         if(data.success){
-                            this.setState({signupState: 1});
+                            sessionStorage.setItem("user", JSON.stringify(data.user));
+                            this.setState({signupState: 1, newUserID: data.id});
                         }
                     })
                 }
             })
         })
-
+    }
+    async updateProfileImage(sendData){
+        const res = await axios.post(this.props.routes.updateprofileimage, sendData);
+        return await res.data;
+    }
+    onProfileImageFinished = (url) => {
+        var sendData = {
+            'id': this.state.newUserID,
+            'newProfileImage': url,
+        }
+        this.updateProfileImage(sendData)
+        .then(data => {
+            if(data.success){
+                sessionStorage.setItem("user", JSON.stringify(data.user));
+                window.location.href = `/`;
+            }
+        })
     }
     render(){
         return(
@@ -89,9 +110,13 @@ class Signup extends Component{
                         <p className="registerTextTitle">Already Have An Account?</p>
                         <a href="/login" className="registerTextLink">Log In</a>
                     </div>
+                    <p className='copyrightText'>dicerollgame.co.uk &copy; 2022</p>
                 </div>
-                {/* Only to be shown after user signup successful */}
 
+                {/* Only to be shown after user signup successful */}
+                <div className={this.state.ProfileImageSelectClasses[this.state.signupState]}>
+                    <ProfileImageSelect onFinished={this.onProfileImageFinished}/>
+                </div>
             </div>
         )
     }

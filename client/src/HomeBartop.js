@@ -22,7 +22,7 @@ class HomeBartop extends Component{
         return(
             <div id='homeBartop'>
                 <div id='homeBartopContainer'>
-                    <img className='profileImage' src={profileImageTest}></img>
+                    <img className='profileImage' src={sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')).profileImage : ''}></img>
                     <p id="gameNameText">Dice Roll Game</p>
                     <img id="topTableIcon" src={this.state.TopTableImages[this.state.TopTableState]}/>
                 </div>

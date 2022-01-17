@@ -1,0 +1,74 @@
+#game{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#gameBartop{
+    width: 98%;
+    background-color: #333333;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    margin-bottom: 20px;
+}
+
+#roundText{
+    font-size: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #E5C451;
+    text-align: center;
+    font-family: pierSansBold;
+}
+
+.gameProfile{
+    display: flex;
+    align-items: center;
+}
+
+.gameProfileImage{
+    width: 80px;
+    margin-right: 15px;
+}
+
+.gameProfileName{
+    color: #B3B8BC;
+    font-size: 23px;
+    font-family: pierSansBold;
+    margin-bottom: 10px;
+}
+
+.gameProfileScore{
+    color: #B3B8BC;
+    font-size: 19px;
+}
+
+.gameProfileTop{
+    margin-bottom: 30px;
+}
+
+#turnText{
+    color: #E5C451;
+    text-align: center;
+    font-family: pierSansBold;
+    font-size: 30px;
+    margin-top: 40px;
+}
+
+#diceContainer{
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
+
+.dice{
+    width: 180px;
+}
+
+.dice:not(:first-child){
+    margin-left: 100px;
+}
+

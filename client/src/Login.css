@@ -99,3 +99,91 @@
     margin-top: 10px;
     cursor: pointer;
 }
+
+.profileImageSelectHide{
+    display: none;
+}
+
+.profileImageSelectShow{
+    display: block;
+}
+
+#profileImageSelect{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#currentlySelectedText{
+    font-size: 20px;
+    padding-top: 20px;
+    font-family: pierSansRegular;
+    color: #E5C451;
+    text-align: center;
+}
+
+#profileImageActive{
+    width: 150px;
+    margin-top: 20px;
+}
+
+#profileImagesDisplayContainer{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    height: 50%;
+    width: 630px;
+}
+
+.profileImagePreviewContainer{
+    /* background-color: #B3B8BC; */
+    width: 150px;
+    margin-left: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+    height: 150px;
+    border-radius: 360px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.profileImagePreviewContainer img {
+    border: 5px solid #e5c55100;
+    border-radius: 360px;
+}
+
+.profileImagePreviewContainerActive{
+    background-color: #b3b8bc00;
+    width: 150px;
+    margin-left: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+    height: 150px;
+    border-radius: 360px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.profileImagePreviewContainerActive img {
+    border: 5px solid #E5C451;
+    transition: all 0.05s;
+    border-radius: 360px;
+}
+
+.profileImagePreview{
+    width: 150px;
+    height: 150px;
+}
+
+.registerButtonFinishedContainer{
+    margin-top: 20px;
+}
+
+.copyrightText{
+    text-align: center;
+    position: relative;
+    top: 50px;
+    color: #686868;
+}

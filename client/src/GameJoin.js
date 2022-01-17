@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 import './GameJoin.css';
 
@@ -26,7 +26,8 @@ class GameJoin extends Component{
 
     onUserInfo = (data) => {
         if(data.username !== this.state.user.username){
-            this.state.isHost ? this.setState({guestUser: data, userConnected: true}, () => {console.log(this.state.guestUser)}) : this.setState({hostUser: data, userConnected: true})
+            // console.log(data);
+            this.state.isHost ? this.setState({guestUser: data, userConnected: true, }) : this.setState({hostUser: data, userConnected: true, isHostUserReady: data.ready})
         }
     }
 
@@ -44,63 +45,72 @@ class GameJoin extends Component{
     }
 
     createGame = (url) => {
-        this.setState({isHost: true} , () => {
-            const socket = io(url);
-            socket.on('connect', () => {
+        this.setState({isHost: true, hostUser: JSON.parse(sessionStorage.getItem('user'))} , () => {
+            // const socket = io(url);
+            this.props.socket.on('connect', () => {
                 // check session storage key exists, request to server to create game with previously server generated gameid
                 if(sessionStorage.getItem('gameid') !== null){
-                    socket.emit('create game', {'gameid': sessionStorage.getItem('gameid')})
+                    this.props.socket.emit('create game', {'gameid': sessionStorage.getItem('gameid')})
                 }else{
                     console.log("no id to connect to");
                 }
             });
     
-            socket.on('user join', (data) => {
-                socket.emit('user info', {'user': JSON.parse(sessionStorage.getItem('user')), 'gameid': sessionStorage.getItem('gameid')})
+            this.props.socket.on('user join', (data) => {
+                var userData = JSON.parse(sessionStorage.getItem('user'));
+                userData.ready = this.state.isHost ? this.state.isHostUserReady : this.state.isGuestUserReady;
+                this.props.socket.emit('user info', {'user': userData, 'gameid': sessionStorage.getItem('gameid')})
             })
 
-            socket.on('ready update', (data) => {
+            this.props.socket.on('ready update', (data) => {
                 this.onReadyUpdate(data);
             })
     
-            socket.on('user info', (data) => {
+            this.props.socket.on('user info', (data) => {
                 this.onUserInfo(data);
             })
 
-            this.setState({socket: socket});
+            this.setState({socket: this.props.socket});
         });        
     }
 
     joinGame = (url) => {
-        const socket = io(url);
-        socket.on('connect', () => {
+        // const socket = io(url);
+        this.props.socket.on('connect', () => {
             // check session storage game id exists
             if(sessionStorage.getItem('gameid') !== null){
-                socket.emit('join game', {'username': "William", 'gameid': sessionStorage.getItem('gameid')})
+                this.props.socket.emit('join game', {'username': "William", 'gameid': sessionStorage.getItem('gameid')})
             }else{
                 console.log("no id to connect to");
             }
         });
 
-        socket.on('user join', (data) => {
-            socket.emit('user info', {'user': JSON.parse(sessionStorage.getItem('user')), 'gameid': sessionStorage.getItem('gameid')})
+        this.props.socket.on('user join', (data) => {
+            this.props.socket.emit('user info', {'user': JSON.parse(sessionStorage.getItem('user')), 'gameid': sessionStorage.getItem('gameid')})
         })
 
-        socket.on('user info', (data) => {
+        this.props.socket.on('user info', (data) => {
             this.onUserInfo(data);
         })
 
-        socket.on('ready update', (data) => {
+        this.props.socket.on('ready update', (data) => {
             this.onReadyUpdate(data);
         })
 
-        this.setState({socket: socket});
+        this.setState({socket: this.props.socket, guestUser: JSON.parse(sessionStorage.getItem('user'))});
     }
 
     updateReadyState = () => {
         this.state.isHost ? this.state.socket.emit('ready update',  {'user': JSON.parse(sessionStorage.getItem('user')), 'ready': !this.state.isHostUserReady, 'gameid': sessionStorage.getItem('gameid')})
         : this.state.socket.emit('ready update',  {'user': JSON.parse(sessionStorage.getItem('user')), 'ready': !this.state.isGuestUserReady, 'gameid': sessionStorage.getItem('gameid')})
     }
+
+    onStartGame = () => {
+        if(this.state.isGuestUserReady && this.state.isHostUserReady){
+            this.props.gameStartedHandler(this.state.hostUser, this.state.guestUser);
+        }
+    }
+
     componentDidMount() {
         // check if signed in before continuing
         if(sessionStorage.getItem('user')){
@@ -121,6 +131,7 @@ class GameJoin extends Component{
             })
         }
     }
+
     render(){
         return(
             <div id='gameJoin'>
@@ -128,10 +139,17 @@ class GameJoin extends Component{
                     <div id='gameJoinTitle'>
                         <p id='gameIDText'>Game ID: <span id='gameIDValue'>{sessionStorage.getItem('gameid') ? sessionStorage.getItem('gameid') : ''}</span></p>
                     </div>
+                    {this.state.isHost ?
+                    <div id='startContainer'>
+                        <a onClick={() => this.onStartGame()} className={this.state.isGuestUserReady && this.state.isHostUserReady ? "startButton" : "startButton startButtonNotReady"}>
+                            <p>Start</p>
+                        </a>
+                    </div>
+                    : ""}
                     <div id='gameJoinUsersContainer'>
                         {this.state.isHost ? 
                         <div className="gameJoinUser">
-                            <img className="gameJoinProfileImage" src={profileImageTest}></img>
+                            <img className="gameJoinProfileImage" src={this.state.user.profileImage}></img>
                             <p className="gameJoinProfileName">{this.state.user ? this.state.user.username : ''}</p>
                             {/*  */}
                             {this.state.isHostUserReady ?
@@ -139,11 +157,15 @@ class GameJoin extends Component{
                             :
                                 <p className="notReadyText">Not Ready</p>
                             }
-                            <button onClick={() => this.updateReadyState()} >Ready</button>
+                            {this.state.isHostUserReady ?
+                                <div className="readyButton unReady" onClick={() => this.updateReadyState()} ><p>Unready</p></div>
+                            :
+                                <div className="readyButton" onClick={() => this.updateReadyState()} ><p>Ready</p></div>
+                            }
                         </div>
                         :
                         <div className="gameJoinUser">
-                            <img className="gameJoinProfileImage" src={profileImageTest}></img>
+                            <img className="gameJoinProfileImage" src={this.state.hostUser ? this.state.hostUser.profileImage: ''}></img>
                             <p className="gameJoinProfileName">{this.state.hostUser ? this.state.hostUser.username : 'no name'}</p>
                             {/* <p className="readyText">Ready</p> */}
                             {this.state.isHostUserReady ?
@@ -164,7 +186,7 @@ class GameJoin extends Component{
                             this.state.isHost ? 
                             
                             <div className="gameJoinUser gameJoinUserLeft">
-                                <img className="gameJoinProfileImage" src={profileImageTest}></img>
+                                <img className="gameJoinProfileImage" src={this.state.guestUser.profileImage}></img>
                                 <p className="gameJoinProfileName">{this.state.guestUser ? this.state.guestUser.username : ''}</p>
                                 {this.state.isGuestUserReady ?
                                 <p className="readyText">Ready</p>
@@ -174,14 +196,18 @@ class GameJoin extends Component{
                             </div>
                             :
                             <div className="gameJoinUser gameJoinUserLeft">
-                                <img className="gameJoinProfileImage" src={profileImageTest}></img>
+                                <img className="gameJoinProfileImage" src={this.state.user.profileImage}></img>
                                 <p className="gameJoinProfileName">{this.state.user ? this.state.user.username : ''}</p>
                                 {this.state.isGuestUserReady ?
                                 <p className="readyText">Ready</p>
                                 :
                                     <p className="notReadyText">Not Ready</p>
                                 }
-                                <button onClick={() => this.updateReadyState()} >Ready</button>
+                                {this.state.isGuestUserReady ?
+                                <div className="readyButton unReady" onClick={() => this.updateReadyState()} ><p>Unready</p></div>
+                                :
+                                    <div className="readyButton" onClick={() => this.updateReadyState()} ><p>Ready</p></div>
+                                }
                             </div>
                         :
                         <NoUser/>

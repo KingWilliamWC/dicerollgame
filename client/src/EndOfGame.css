@@ -1,0 +1,51 @@
+#endOfGame{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.wonText{
+    font-size: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #E5C451;
+    text-align: center;
+    font-family: pierSansBold;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+#buttonBottomContainer{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 75px;
+}
+
+.gameWonbuttonContainer{
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.1s;
+    /* -webkit-user-select: none; */
+    user-select: none;
+}
+
+.gameWonbuttonContainer p {
+    font-family: PierSansBold;
+    font-size: 20px;
+    color: #333333;
+}
+
+.gameWonbuttonContainer:hover{
+    transform: scale(1.01);
+}
+
+.gameWonbuttonContainer:not(:first-child){
+    margin-left: 30px;
+}
