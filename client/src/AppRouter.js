@@ -17,7 +17,7 @@ class AppRouter extends Component {
         document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     }
     render(){
-        var urlBase = 'http://52.151.90.27';
+        var urlBase = 'https://dicerollgame.co.uk';
         var routes = {
             'newgameid': `${urlBase}/api/newgameid`,
             'signup': `${urlBase}/api/signup`,

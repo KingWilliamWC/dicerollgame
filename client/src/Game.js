@@ -59,6 +59,10 @@ class Game extends Component{
         }
     }
 
+    // componentWillUnmount(){
+        // console.log("game unmounting");
+    // }
+
     componentDidMount(){
         this.setState({DiceRoll1Image: document.getElementById("dice1"), DiceRoll2Image: document.getElementById("dice2")});
         const url = new URL(window.location.href);
@@ -232,6 +236,7 @@ class Game extends Component{
                     </div>
                 </div>
                 <p id='turnText'>{this.state.activePlayerName}'s Turn!</p>
+                <p id='doubleText'>{this.state.isSecondCurrentGo ? 'DOUBLE!' : ''} </p>
                 <div id='diceContainer'>
                     <img id='dice1' src={DiceRoll0} className="dice"></img>
                     <img id='dice2' src={DiceRoll0} className="dice"></img>

@@ -10,6 +10,8 @@ class Login extends Component{
         this.state = {
             errorTextClasses: ['errorHide', 'errorText erroTextCenter'],
             errorTextState: 0,
+            errorTextMessage: ['Username or Password Incorrect', `Username Doesn't exist`],
+            errorTextMessageState: 0,
         }
     }
     async loginUser(sendData){
@@ -32,7 +34,11 @@ class Login extends Component{
                     sessionStorage.setItem("user", JSON.stringify(data.user));
                     window.location.href = `/`;
                 }else if(!data.success && data.reason === "invpassword"){
-                    this.setState({errorTextState: 1});
+                    // invalid password
+                    this.setState({errorTextState: 1, errorTextMessageState: 0});
+                }else{
+                    // user account doesn't exist
+                    this.setState({errorTextState: 1, errorTextMessageState: 1});
                 }
             })
         }
@@ -43,7 +49,7 @@ class Login extends Component{
                 <p className="diceRollGameRegisterLogo">Dice Roll Game</p>
                 <div className="registrationContainer">
                     <p className="registerTabTitle">Log In</p>
-                    <p className={this.state.errorTextClasses[this.state.errorTextState]}>Username or Password Incorrect</p>
+                    <p className={this.state.errorTextClasses[this.state.errorTextState]}>{this.state.errorTextMessage[this.state.errorTextMessageState]}</p>
                     <div id="loginInputsContainer">
                         <input onKeyPress={(e) => {if(e.key === 'Enter'){this.userLogin()}}} maxLength={24} placeholder="Username" id='loginUsername' className="registerInput"></input>
                         <input onKeyPress={(e) => {if(e.key === 'Enter'){this.userLogin()}}} id='loginPassword' type={"password"} placeholder="Password" className="registerInput registerInputPassword"></input>

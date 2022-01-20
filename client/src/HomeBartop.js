@@ -2,8 +2,7 @@ import React, { Component } from "react";
 
 import './HomeBartop.css';
 
-// images, png, jpg etc
-import profileImageTest from './Images/ProfileImageTest.png';
+import SettingsOverlay from "./SettingsOverlay"; 
 
 // vectors
 import topTableSolidSVG from './SVG/TopTable-Solid.svg';
@@ -16,13 +15,20 @@ class HomeBartop extends Component{
         this.state = {
             TopTableImages: [topTableSolidSVG, topTableSolidFillSVG],
             TopTableState: 0,
+            isOverlay: false,
         }
     }
+
+    toggleShowSettingsOverlay = () => {
+        this.state.isOverlay ? this.setState({isOverlay: false}) : this.setState({isOverlay: true});
+    }
+
     render(){
         return(
             <div id='homeBartop'>
+                {this.state.isOverlay ? <SettingsOverlay toggleShowHandler={this.toggleShowSettingsOverlay}/> : ''}
                 <div id='homeBartopContainer'>
-                    <img className='profileImage' src={sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')).profileImage : ''}></img>
+                    <img onClick={() => this.toggleShowSettingsOverlay()} className='profileImage' src={sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')).profileImage : ''}></img>
                     <p id="gameNameText">Dice Roll Game</p>
                     <img id="topTableIcon" src={this.state.TopTableImages[this.state.TopTableState]}/>
                 </div>

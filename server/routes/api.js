@@ -40,6 +40,7 @@ const userSchema = new mongoose.Schema({
   username: String,
   password: String,
   profileImage: String,
+  gameHistory: Array,
 });
 
 const User = mongoose.model('User', userSchema);
@@ -52,6 +53,7 @@ router.post('/signup', (req, res) => {
           username: req.body.username,
           password: hashedPassword,
           profileImage: `/ProfileImages/${randomIntFromInterval(1, 15)}.png`, // random image in case they close before selecting an image
+          gameHistory: [],
         }).save((err, newUser) => {
           if(err){res.json({err: 'err'});res.end();}
           else{

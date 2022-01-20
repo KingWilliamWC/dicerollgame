@@ -1,0 +1,88 @@
+#settingsOverlay{
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+#settingsOverlayBackground{
+    background-color: rgba(0, 0, 0, 0.521);
+    width: 100%;
+    height: 100%;
+    z-index: 101;
+}
+
+#settingsOverlayContentContainer{
+    z-index: 102;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    bottom: 0;
+    right: 0;
+    width: 80%;
+    height: 90%;
+    border-radius: 5px;
+    transform: translate(-50%,-50%);
+    background-color: #484848;
+}
+
+#settingsOverlaySidebar{
+    background-color: #333333;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#settingsOverlayTopBar{
+    width: 100%;
+    padding-top: 15px;
+}
+
+.settingsOverlaySidebarItem{
+    width: 100%;
+    /* background-color: #484848; */
+    padding: 12px 40px;
+    color: #E5C451;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    font-size: 19px;
+    transition: all 0.1s;
+    filter: opacity(0.9);
+}
+
+.settingsOverlaySidebarItem, .settingsOverlaySidebarItemActive{
+    margin-top: 10px;
+}
+
+.settingsOverlaySidebarItem:hover{
+    background-color: #48484870;
+    filter: opacity(1);
+}
+
+.settingsOverlaySidebarItemActive{
+    width: 100%;
+    background-color: #484848;
+    padding: 12px 40px;
+    color: #E5C451;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    font-size: 19px;
+    transition: all 0.1s;
+}
+
+#settingsOverlayBottomBar{
+    margin-top: auto;
+    margin-bottom: 15px;
+    width: 100%;
+}
+.settingsOverlaySidebarItemRed{
+    color: #E94F64;
+}

@@ -13,14 +13,17 @@ const { Server } = require("socket.io");
  * Get port from environment and store in Express.
 */
 
-var port = normalizePort(process.env.PORT || '80');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
- */
+*/
 
 var server = http.createServer(app);
+/**
+ * Create Socket.IO server.
+*/
 const io = new Server(server, {
   cors: {
     origin: "*" //allow anyone from any domain to connect
@@ -42,7 +45,7 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10); // that's base 10 number formatting
+  var port = parseInt(val, 10); // base 10 port number formatting
 
   if (isNaN(port)) {
     // named pipe

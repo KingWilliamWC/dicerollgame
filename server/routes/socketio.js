@@ -85,9 +85,23 @@ const rootSocket = (io) => {
             io.to(data.gameid).emit('next round');
         })
 
+        socket.on('exit game', (data) => {
+            //console.log(io.of('/').in(data.gameid).fetchSockets().length);
+            io.to(data.gameid).emit('exit game');
+        })
+
         socket.on('game won', (data) => {
             console.log(data);
             io.to(data.gameid).emit('game won', (data));
+        })
+
+        socket.on('alert play again', (data) => {
+            console.log(data);
+            io.to(data.gameid).emit('alert play again', (data));
+        })
+
+        socket.on('play again', (data) => {
+            io.to(data.gameid).emit('play again', (data));
         })
 
         socket.on('disconnect', () => {
