@@ -57,7 +57,7 @@ router.post('/signup', (req, res) => {
         }).save((err, newUser) => {
           if(err){res.json({err: 'err'});res.end();}
           else{
-            newUser.password = undefined;
+            newUser.password = undefined; // don't send the password
             res.json({'success': true, 'user': newUser, 'id': newUser._id});
           }
         })

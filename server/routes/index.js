@@ -18,6 +18,10 @@ router.get('/game', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
+router.get('/toptable', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../build/index.html'));

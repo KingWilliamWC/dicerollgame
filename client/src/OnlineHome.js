@@ -15,6 +15,11 @@ class OnlineHome extends Component{
         }
     }
 
+    componentDidMount(){
+        if(!sessionStorage.getItem('user')){
+            window.location.href = `/login`;
+        }
+    }
     onStartJoinGame = () => {
         this.setState({isJoiningGame: 1})
     }

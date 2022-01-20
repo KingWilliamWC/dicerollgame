@@ -10,6 +10,7 @@ import OnlineHome from './OnlineHome';
 import GlobalGame from './GlobalGame';
 import Login from './Login';
 import Signup from './Signup';
+import TopTable from './TopTable';
 
 class AppRouter extends Component {
     componentDidMount = () => {
@@ -33,6 +34,7 @@ class AppRouter extends Component {
                     <Route exact path='/game' element={<GlobalGame routes={routes}/>}/>
                     <Route exact path='/login' element={<Login routes={routes}/>}/>
                     <Route exact path='/signup' element={<Signup routes={routes}/>}/>
+                    <Route exact path='/toptable' element={<TopTable/>}/>
                 </Routes>
             </Router>
         )

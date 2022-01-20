@@ -22,33 +22,37 @@ class GlobalGame extends Component{
         }
     }
     componentDidMount(){
-        const url = new URL(window.location.href);
-        if(url.searchParams.get("jointype")){
-            if(url.searchParams.get("jointype") === 'create'){
-                this.setState({isHost: true}, () => {
-                    this.startGame();
-                })
-            }
-            const socket = io(this.props.routes.gamesocket, {transports:['websocket'], upgrade: false});
-            socket.on('game start', (data) => {
-                this.setState({hostUser: data.hostUser, guestUser: data.guestUser}, () => {
-                    this.setState({hasGameStarted: true});
-                })
-            })
-    
-            socket.on('game won', (data) => {
-                console.log("Winner Score:" + JSON.parse(data.winner).endScore);
-                console.log("Loser Score:" + JSON.parse(data.loser).endScore);
-                this.setState({winner: JSON.parse(data.winner), loser: JSON.parse(data.loser), hasGameFinished: true});
-            })
-
-            socket.on('play again', (data) => {
-                this.setState({hasGameFinished: false});
-            })
-            
-            this.setState({socket: socket});
+        if(!sessionStorage.getItem('user')){
+            window.location.href = `/login`;
         }else{
-            window.location.href = `/`;
+            const url = new URL(window.location.href);
+            if(url.searchParams.get("jointype")){
+                if(url.searchParams.get("jointype") === 'create'){
+                    this.setState({isHost: true}, () => {
+                        this.startGame();
+                    })
+                }
+                const socket = io(this.props.routes.gamesocket, {transports:['websocket'], upgrade: false});
+                socket.on('game start', (data) => {
+                    this.setState({hostUser: data.hostUser, guestUser: data.guestUser}, () => {
+                        this.setState({hasGameStarted: true});
+                    })
+                })
+        
+                socket.on('game won', (data) => {
+                    console.log("Winner Score:" + JSON.parse(data.winner).endScore);
+                    console.log("Loser Score:" + JSON.parse(data.loser).endScore);
+                    this.setState({winner: JSON.parse(data.winner), loser: JSON.parse(data.loser), hasGameFinished: true});
+                })
+    
+                socket.on('play again', (data) => {
+                    this.setState({hasGameFinished: false});
+                })
+                
+                this.setState({socket: socket});
+            }else{
+                window.location.href = `/`;
+            }
         }
     }
 
