@@ -21,7 +21,7 @@ class AppRouter extends Component {
         document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     }
     render(){
-        var urlBase = 'https://dicerollgame.co.uk';
+        var urlBase = 'https://dicerollgame.co.uk/';
         var routes = {
             'newgameid': `${urlBase}/api/newgameid`,
             'signup': `${urlBase}/api/signup`,

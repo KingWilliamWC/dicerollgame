@@ -164,7 +164,7 @@ checkHighScore = (currentTable, winner) => {
   topTable.findByIdAndUpdate({_id: currentTable._id}, {players: croppedTable},{new: true}, (err, result) => {
     if(err){console.log('error', err)}
     else{
-      console.log("Succesfully updated table");
+      console.log("Succesfully updated table: ", result);
     }
   });
 }
