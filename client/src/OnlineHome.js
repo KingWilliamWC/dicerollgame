@@ -70,7 +70,6 @@ class OnlineHome extends Component{
                             <p>Join!</p>
                         </a>
                     </div>
-
                 </div>
             </div>
         )

@@ -8,6 +8,9 @@ import NoUser from "./NoUser";
 
 import profileImageTest from './Images/ProfileImageTest.png';
 
+import ExitImage from './SVG/Exit.svg';
+import ExitFillImage from './SVG/Exit-Fill.svg';
+
 class GameJoin extends Component{
     constructor(props){
         super(props);
@@ -21,6 +24,8 @@ class GameJoin extends Component{
             isHostUserReady: false,
             userConnected: false,
             socket: null,
+            exitImage: [ExitImage, ExitFillImage],
+            exitImageState: 0,
         }
     }
 
@@ -55,6 +60,25 @@ class GameJoin extends Component{
                     console.log("no id to connect to");
                 }
             });
+
+            this.props.socket.on('force exit', (data) => {
+                // console.log("Leaving game");
+                if(data.isHost){
+                    // the entire game has ended and there is no host
+                    window.location.href = `/`;
+                }else if(!data.isHost && this.state.isHost){
+                    // the guest has infact left remove them from the render
+                    this.setState({
+                        guestUser: null,
+                        isGuestUserReady: false,
+                        userConnected: false,
+
+                    })
+                }else if(!data.isHost && !this.state.isHost){
+                    // we have recieved the cue to leave
+                    window.location.href = `/`;
+                }
+            })
     
             this.props.socket.on('user join', (data) => {
                 var userData = JSON.parse(sessionStorage.getItem('user'));
@@ -84,6 +108,25 @@ class GameJoin extends Component{
                 console.log("no id to connect to");
             }
         });
+
+        this.props.socket.on('force exit', (data) => {
+            // console.log("Leaving game");
+            if(data.isHost){
+                // the entire game has ended and there is no host
+                window.location.href = `/`;
+            }else if(!data.isHost && this.state.isHost){
+                // the guest has infact left remove them from the render
+                this.setState({
+                    guestUser: null,
+                    isGuestUserReady: false,
+                    userConnected: false,
+
+                })
+            }else if(!data.isHost && !this.state.isHost){
+                // we have recieved the cue to leave
+                window.location.href = `/`;
+            }
+        })
 
         this.props.socket.on('user join', (data) => {
             this.props.socket.emit('user info', {'user': JSON.parse(sessionStorage.getItem('user')), 'gameid': sessionStorage.getItem('gameid')})
@@ -120,10 +163,10 @@ class GameJoin extends Component{
                 if(url.searchParams.get("jointype")){
                     if(url.searchParams.get("jointype") === 'create'){
                         console.log("Creating game");
-                        this.createGame('http://192.168.2.37:81/');
+                        this.createGame();
                     }else if (url.searchParams.get("jointype") === 'join'){
                         console.log("Joining game");
-                        this.joinGame('http://192.168.2.37:81/');
+                        this.joinGame();
                     }
                 }else{
                     window.location.href = `/`;
@@ -132,11 +175,16 @@ class GameJoin extends Component{
         }
     }
 
+    onExitGame = () => {
+        this.props.socket.emit('force exit', {'isHost': this.state.isHost, 'gameid': sessionStorage.getItem('gameid')});
+    }
+
     render(){
         return(
             <div id='gameJoin'>
                 <div id='gameJoinContainer'>
                     <div id='gameJoinTitle'>
+                        <img onClick={() => this.onExitGame()} onPointerLeave={() => this.setState({exitImageState: 0})} onPointerEnter={() => this.setState({exitImageState: 1})} className="exitButton" src={this.state.exitImage[this.state.exitImageState]}></img>
                         <p id='gameIDText'>Game ID: <span id='gameIDValue'>{sessionStorage.getItem('gameid') ? sessionStorage.getItem('gameid') : ''}</span></p>
                     </div>
                     {this.state.isHost ?

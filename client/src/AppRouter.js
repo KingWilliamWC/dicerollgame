@@ -11,6 +11,9 @@ import GlobalGame from './GlobalGame';
 import Login from './Login';
 import Signup from './Signup';
 import TopTable from './TopTable';
+import VSComputerGameGlobal from './VSComputerGameGlobal';
+import LocalMultiplayerHome from './LocalMultiplayerHome';
+import LocalMultiplayerGameGlobal from './LocalMultiplayerGameGlobal';
 
 class AppRouter extends Component {
     componentDidMount = () => {
@@ -24,6 +27,8 @@ class AppRouter extends Component {
             'signup': `${urlBase}/api/signup`,
             'login': `${urlBase}/api/login`,
             'updateprofileimage': `${urlBase}/api/updateprofileimage`,
+            'gameend': `${urlBase}/api/gameend`,
+            'toptabledata': `${urlBase}/api/toptable`,
             'gamesocket': `${urlBase}/`
         }
         return(
@@ -34,7 +39,10 @@ class AppRouter extends Component {
                     <Route exact path='/game' element={<GlobalGame routes={routes}/>}/>
                     <Route exact path='/login' element={<Login routes={routes}/>}/>
                     <Route exact path='/signup' element={<Signup routes={routes}/>}/>
-                    <Route exact path='/toptable' element={<TopTable/>}/>
+                    <Route exact path='/toptable' element={<TopTable routes={routes}/>}/>
+                    <Route exact path='/vscomputergame' element={<VSComputerGameGlobal/>}/>
+                    <Route exact path='/localmultiplayer' element={<LocalMultiplayerHome/>}/>
+                    <Route exact path='/localmultiplayergame' element={<LocalMultiplayerGameGlobal/>}/>
                 </Routes>
             </Router>
         )

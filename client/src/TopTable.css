@@ -1,0 +1,66 @@
+#toptableContainer{
+    margin-top: 30px;
+}
+
+#topTableTitleText{
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #E5C451;
+    text-align: center;
+    font-family: pierSansBold;
+}
+
+#toptableTableContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    position: relative;
+    left: -25px;
+}
+
+.toptableTableTable{
+    width: 50%;
+}
+
+th{
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #E5C451;
+    text-align: center;
+    font-family: pierSansBold;
+}
+
+.tableText{
+    font-size: 23px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #E5C451;
+    text-align: center;
+    font-family: pierSansRegular;
+}
+
+.tableTextLight{
+    font-size: 23px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #B3B8BC;
+    text-align: center;
+    font-family: pierSansRegular;
+}
+
+tr>td{
+    padding-bottom: 2em;
+}
+
+td{
+    text-align: center;
+}
+
+.toptableTableTableBody{
+    position: relative;
+    top: 40px;
+}

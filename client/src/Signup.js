@@ -10,7 +10,7 @@ class Signup extends Component{
 
         this.state = {
             userNameErrorClasses: ['errorHide', 'errorText'],
-            userNameErrorText: ["Username must be at least 4 characters", "Username already exists"],
+            userNameErrorText: ["Username must be at least 4 characters", "Username already exists", "Username can't be longer than 24 characters"],
             userNameErrorTextState: 0,
             userNameErrorState: 0,
             passwordErrorClasses: ['errorHide', 'errorText'],
@@ -32,16 +32,18 @@ class Signup extends Component{
     userSignup = () => {
         this.setState({userNameErrorState: 0, passwordErrorState: 0}, () => {
             var inputError = false;
-            var newUsername = document.getElementById("usernameInput").value.trim();
+            var newUsername = document.getElementById("usernameInput").value;
             var newPassword = document.getElementById("userPassword").value;
             var confirmedPassword = document.getElementById("confirmPassword").value;
             var newUsernameErrorState = 0; // default to nothing
             var newPasswordErrorState = 0; // default to nothing
             var newPasswordErrorTextState = 0;
+            var newUserNameErrorTextState = 0;
             if(newUsername.length < 4){
                 newUsernameErrorState = 1;
                 inputError = true;
             }
+            
             if(newPassword.length < 4){
                 newPasswordErrorState = 1;
                 newPasswordErrorTextState = 0;
@@ -51,7 +53,7 @@ class Signup extends Component{
                 newPasswordErrorTextState = 1;
                 inputError = true;
             }
-            this.setState({userNameErrorState: newUsernameErrorState, passwordErrorState: newPasswordErrorState, passwordErrorTextState: newPasswordErrorTextState}, () => {
+            this.setState({userNameErrorState: newUsernameErrorState, passwordErrorState: newPasswordErrorState, passwordErrorTextState: newPasswordErrorTextState, userNameErrorTextState: newUserNameErrorTextState}, () => {
                 if(!inputError){
                     var sendData = {
                         'username': newUsername,
@@ -98,7 +100,7 @@ class Signup extends Component{
                     <p className="registerTabTitle">Sign Up</p>
                     <div id="loginInputsContainer">
                         <p className={this.state.userNameErrorClasses[this.state.userNameErrorState]}>{this.state.userNameErrorText[this.state.userNameErrorTextState]}</p>
-                        <input onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} maxLength={24} placeholder="Username" id='usernameInput' className="registerInput"></input>
+                        <input maxLength={24} onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} maxLength={24} placeholder="Username" id='usernameInput' className="registerInput"></input>
                         <p className={this.state.passwordErrorClasses[this.state.passwordErrorState]}>{this.state.passwordErrorText[this.state.passwordErrorTextState]}</p>
                         <input onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} type={"password"} placeholder="Password" id="userPassword" className="registerInput registerInputPassword"></input>
                         <input onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} type={"password"} placeholder="Confim password" id='confirmPassword' className="registerInput registerInputPassword"></input>

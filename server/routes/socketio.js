@@ -90,8 +90,18 @@ const rootSocket = (io) => {
             io.to(data.gameid).emit('exit game');
         })
 
+        socket.on('force exit', (data) => {
+            // console.log(data);
+            io.to(data.gameid).emit('force exit', (data));
+        })
+
+        socket.on('game force exit', (data) => {
+            // console.log(data);
+            io.to(data.gameid).emit('game force exit', (data));
+        })
+
         socket.on('game won', (data) => {
-            console.log(data);
+            // console.log(data);
             io.to(data.gameid).emit('game won', (data));
         })
 

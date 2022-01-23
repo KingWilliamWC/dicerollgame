@@ -3,6 +3,13 @@ var mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 var router = express.Router();
 
+// top table model
+const topTableSchema = new mongoose.Schema({
+  players: Array,
+})
+
+const topTable = mongoose.model('Toptable', topTableSchema);
+
 // database connection
 mongoose.connect('mongodb://localhost:27017/dicerollgame', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
@@ -10,6 +17,27 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function(){
   console.log('connected to database on mongodb://localhost:27017/dicerollgame');
+  var isTopTableModel = false;
+  mongoose.connection.db.listCollections().toArray(function (err, names) {
+    for(var i = 0; i < names.length; i++){
+      if(names[i].name === 'toptables'){
+        isTopTableModel = true;
+      }
+    }
+
+    if(!isTopTableModel){
+      new topTable({
+        players: [] // empty array
+      }).save((err, newTopTable) => {
+        if(err){
+          console.error(err);
+          process.exit(1);
+        }else{
+          console.log("Created new table since we didn't have one");
+        }
+      })
+    }
+});
 })
 
 //password hashing setup
@@ -44,6 +72,8 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', userSchema);
+
+
 
 router.post('/signup', (req, res) => {
   User.find({username: req.body.username}, (err, foundUsernames) => {
@@ -89,6 +119,91 @@ router.post('/login', (req, res) => {
   })
 })
 
+// getUniqueListBy = (arr, key) => {
+//   // this may or may not have been nicked from https://stackoverflow.com/questions/2218999/how-to-remove-all-duplicates-from-an-array-of-objects
+//   return [...new Map(arr.map(item => [item[key], item])).values()]
+// }
+
+checkHighScore = (currentTable, winner) => {
+  var newTable = currentTable.players;
+  if(newTable.length === 0){
+    // no sorting required, first one in
+    var addWinner = {
+      'username': winner.username,
+      'score': winner.endScore
+    }
+    newTable.push(addWinner);
+  }else{
+    var addWinner = {
+      'username': winner.username,
+      'score': winner.endScore
+    }
+    newTable.push(addWinner);
+    newTable.sort((a, b) => b.score - a.score);
+
+    // remove all the duplicates of there previous scores
+    var duplicates = []
+    for(var i = 0; i < newTable.length; i++){
+      if(newTable[i].username === winner.username){
+        duplicates.push(i);
+      }
+    }
+    if(duplicates.length > 1){
+      duplicates.shift();
+      newTable.splice(duplicates[0], 1);
+    }
+
+    if(newTable.length > 5){
+      var croppedTable = newTable.slice(0, 5);
+    }else{
+      var croppedTable = newTable;
+    }
+    console.log(croppedTable);
+  }
+
+  topTable.findByIdAndUpdate({_id: currentTable._id}, {players: croppedTable},{new: true}, (err, result) => {
+    if(err){console.log('error', err)}
+    else{
+      console.log("Succesfully updated table");
+    }
+  });
+}
+
+updateHighScore = (winner) => {
+  topTable.find({}, (err, foundTopTables) => {
+    if(err){res.json({'err': err, 'success': false})}
+    else{
+      if(foundTopTables.length === 1){
+        console.log();
+        checkHighScore(foundTopTables[0], winner);
+        return {'success': true};
+      }else{
+        // res.json({'success': false, 'reason': 'duplicatetables'});
+        return {'success': false, 'reason': 'duplicate'};
+      }
+    }
+  })
+}
+
+router.post('/gameend', (req, res) => {
+  // console.log(req.body);
+  updateHighScore(req.body.winner);
+  res.json({'success': true});
+})
+
+router.get('/toptable', (req, res) => {
+  topTable.find({}, (err, foundTopTables) => {
+    if(err){res.json({'err': err, 'success': false})}
+    else{
+      if(foundTopTables.length === 1){
+        res.json({'success': true,'topTable': foundTopTables[0]});
+      }else{
+        res.json({'success': false,'reason': 'duplicate'});
+      }
+    }
+  })
+})
+
 router.post('/updateProfileImage', (req, res) => {
   User.findByIdAndUpdate(req.body.id, {profileImage: req.body.newProfileImage}, {new: true} , (err, result) => {
     if(!err){
@@ -100,7 +215,4 @@ router.post('/updateProfileImage', (req, res) => {
   })
 })
 
-
-
 module.exports = router;
-    

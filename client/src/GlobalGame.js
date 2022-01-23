@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import axios from "axios";
+
 import GameJoin from "./GameJoin";
 import Game from "./Game";
 import EndOfGame from "./EndOfGame";
@@ -21,6 +23,13 @@ class GlobalGame extends Component{
             isHost: false,
         }
     }
+
+    // upload for a test of a high score
+    async uploadWinnerScore(sendData){
+        const res = await axios.post(this.props.routes.gameend, sendData)
+        return await res.data;
+    }
+
     componentDidMount(){
         if(!sessionStorage.getItem('user')){
             window.location.href = `/login`;
@@ -40,9 +49,24 @@ class GlobalGame extends Component{
                 })
         
                 socket.on('game won', (data) => {
-                    console.log("Winner Score:" + JSON.parse(data.winner).endScore);
-                    console.log("Loser Score:" + JSON.parse(data.loser).endScore);
-                    this.setState({winner: JSON.parse(data.winner), loser: JSON.parse(data.loser), hasGameFinished: true});
+                    // console.log("Winner:" + JSON.stringify(data.winner));
+                    // console.log("Loser:" + JSON.stringify(data.loser));
+                    if(this.state.isHost){
+                        var sendData = {
+                            'winner': JSON.parse(data.winner),
+                            'loser': JSON.parse(data.loser),
+                        }
+                        this.uploadWinnerScore(sendData)
+                        .then((recievedata) => {
+                            console.log(recievedata);
+                            if(recievedata.success){
+                                this.setState({winner: JSON.parse(data.winner), loser: JSON.parse(data.loser), hasGameFinished: true});
+                            }
+                        })
+                    }else{
+                        this.setState({winner: JSON.parse(data.winner), loser: JSON.parse(data.loser), hasGameFinished: true});
+                    }
+
                 })
     
                 socket.on('play again', (data) => {

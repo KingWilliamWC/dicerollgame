@@ -29,8 +29,10 @@ class HomeBartop extends Component{
                 {this.state.isOverlay ? <SettingsOverlay toggleShowHandler={this.toggleShowSettingsOverlay}/> : ''}
                 <div id='homeBartopContainer'>
                     <img onClick={() => this.toggleShowSettingsOverlay()} className='profileImage' src={sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')).profileImage : ''}></img>
-                    <p id="gameNameText">Dice Roll Game</p>
-                    <img id="topTableIcon" src={this.state.TopTableImages[this.state.TopTableState]}/>
+                    <a href="/" id="gameNameText">Dice Roll Game</a>
+                    <a href="/toptable">
+                        <img id="topTableIcon" src={this.state.TopTableImages[this.state.TopTableState]}/>
+                    </a>
                 </div>
             </div>
         )

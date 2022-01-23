@@ -2,12 +2,23 @@
     padding-top: 20px;
 }
 
+.exitButton{
+    width: 65px;
+    margin-left: 40px;
+    cursor: pointer;
+    fill: #E94F64;
+}
+
 #gameJoinTitle{
-    text-align: center;
+    display: flex;
+    align-items: center;
 }
 #gameIDText{
     font-size: 40px;
     color: #B3B8BC;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 #gameJoinUsersContainer{

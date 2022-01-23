@@ -4,7 +4,9 @@ import './Game.css';
 
 import DiceRoll0 from './Images/DiceRoll0.png';
 
-import profileImageTest from './Images/ProfileImageTest.png';
+// import profileImageTest from './Images/ProfileImageTest.png';
+import ExitImage from './SVG/Exit.svg';
+import ExitFillImage from './SVG/Exit-Fill.svg';
 
 class Game extends Component{
     constructor(props){
@@ -21,6 +23,8 @@ class Game extends Component{
             isOurGo: false,
             DiceRoll1Image: null,
             DiceRoll2Image: null,
+            exitImage: [ExitImage, ExitFillImage],
+            exitImageState: 0,
         }
     }
 
@@ -73,6 +77,10 @@ class Game extends Component{
                 })
             }
         }
+
+        this.props.socket.on('game force exit', (data) => {
+            window.location.href = `/`;
+        })
 
         this.props.socket.on('start game', (data) => {
             if(data.userToStart === 'host' && this.state.isHost){
@@ -213,10 +221,15 @@ class Game extends Component{
             this.props.socket.emit('player turn', ({"diceRolled1": diceRolled1, "diceRolled2": diceRolled2, 'gameid': sessionStorage.getItem('gameid')}));
         }
     }
+
+    onExitGame = () => {
+        this.props.socket.emit('game force exit', {'gameid': sessionStorage.getItem('gameid')});
+    }
     render(){
         return(
             <div id='game'>
                 <div id='gameBartop'>
+                    <img onClick={() => this.onExitGame()} onPointerLeave={() => this.setState({exitImageState: 0})} onPointerEnter={() => this.setState({exitImageState: 1})} className="exitButton" src={this.state.exitImage[this.state.exitImageState]}></img>
                     <p id='roundText'>Round {this.state.currentRound}</p>
                 </div>
                 <div id='gameProfilesContainer'>

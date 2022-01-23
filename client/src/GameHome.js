@@ -18,13 +18,13 @@ class GameHome extends Component{
                     <a href="/online" className="buttonContainer buttonRed">
                         <p>Online</p>
                     </a>
-                    <a className="buttonContainer buttonBlue">
+                    <a href="/localmultiplayer" className="buttonContainer buttonBlue">
                         <p>Local Multiplayer</p>
                     </a>
                 </div>
                 <div id='noFriendsContainer'>
                     <p id='noFriendsTitle'>Don't Have Any Friends?</p>
-                    <p id='playAgainstTheComputerText'>Play Against The Computer</p>
+                    <a href="/vscomputergame" id='playAgainstTheComputerText'>Play Against The Computer</a>
                 </div>
             </div>
         )
