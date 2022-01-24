@@ -126,13 +126,18 @@ router.post('/login', (req, res) => {
 
 checkHighScore = (currentTable, winner) => {
   var newTable = currentTable.players;
+  console.log(newTable, newTable.length);
   if(newTable.length === 0){
     // no sorting required, first one in
     var addWinner = {
       'username': winner.username,
       'score': winner.endScore
     }
+
+    console.log('were adding the first one');
+
     newTable.push(addWinner);
+    var croppedTable = newTable;
   }else{
     var addWinner = {
       'username': winner.username,
@@ -140,6 +145,7 @@ checkHighScore = (currentTable, winner) => {
     }
     newTable.push(addWinner);
     newTable.sort((a, b) => b.score - a.score);
+
 
     // remove all the duplicates of there previous scores
     var duplicates = []
@@ -158,7 +164,7 @@ checkHighScore = (currentTable, winner) => {
     }else{
       var croppedTable = newTable;
     }
-    console.log(croppedTable);
+    console.log('new table:', croppedTable);
   }
 
   topTable.findByIdAndUpdate({_id: currentTable._id}, {players: croppedTable},{new: true}, (err, result) => {
