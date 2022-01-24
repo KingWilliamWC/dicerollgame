@@ -30,6 +30,10 @@ router.get('/localmultiplayer', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
+router.get('/localmultiplayergame', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../build/index.html'));
