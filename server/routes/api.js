@@ -134,7 +134,7 @@ checkHighScore = (currentTable, winner) => {
       'score': winner.endScore
     }
 
-    console.log('were adding the first one');
+    // console.log('were adding the first one');
 
     newTable.push(addWinner);
     var croppedTable = newTable;
@@ -164,7 +164,7 @@ checkHighScore = (currentTable, winner) => {
     }else{
       var croppedTable = newTable;
     }
-    console.log('new table:', croppedTable);
+    // console.log('new table:', croppedTable);
   }
 
   topTable.findByIdAndUpdate({_id: currentTable._id}, {players: croppedTable},{new: true}, (err, result) => {
