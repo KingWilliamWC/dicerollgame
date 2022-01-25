@@ -126,7 +126,7 @@ router.post('/login', (req, res) => {
 
 checkHighScore = (currentTable, winner) => {
   var newTable = currentTable.players;
-  console.log(newTable, newTable.length);
+  // console.log(newTable, newTable.length);
   if(newTable.length === 0){
     // no sorting required, first one in
     var addWinner = {
@@ -170,7 +170,7 @@ checkHighScore = (currentTable, winner) => {
   topTable.findByIdAndUpdate({_id: currentTable._id}, {players: croppedTable},{new: true}, (err, result) => {
     if(err){console.log('error', err)}
     else{
-      console.log("Succesfully updated table: ", result);
+      // console.log("Succesfully updated table: ", result);
     }
   });
 }
@@ -180,7 +180,7 @@ updateHighScore = (winner) => {
     if(err){res.json({'err': err, 'success': false})}
     else{
       if(foundTopTables.length === 1){
-        console.log();
+        //console.log();
         checkHighScore(foundTopTables[0], winner);
         return {'success': true};
       }else{
@@ -191,9 +191,37 @@ updateHighScore = (winner) => {
   })
 }
 
+updateGameHistory = (data) => {
+  console.log(data);
+  // var ids_to_update = [data.winner._id, data.loser._id];
+  // console.log(ids_to_update);
+  for(var i = 0; i < 2; i++){
+    // console.log(`${i === 0 ? "adding to winner" : "adding to loser"}`);
+    User.find({_id: i === 0 ? data.winner._id : data.loser._id}, (err, foundUser) => {
+      if(!err && foundUser.length === 1){
+        var currentHistory = foundUser[0].gameHistory;
+        currentHistory.push(
+          data
+        )
+        User.findByIdAndUpdate({_id: foundUser[0]._id}, {gameHistory: currentHistory}, {new: true}, (err, result) => {
+          if(err){
+            console.log("Error adding game history: ", err);
+            process.exit(1);
+          }else{
+            console.log("Added to history: ", result);
+          }
+        })
+      }
+    })
+  }
+}
+
 router.post('/gameend', (req, res) => {
   // console.log(req.body);
   updateHighScore(req.body.winner);
+  req.body.winner.gameHistory = null; // prevent duplicate history
+  req.body.loser.gameHistory = null; // prevent duplicate history
+  updateGameHistory(req.body);
   res.json({'success': true});
 })
 

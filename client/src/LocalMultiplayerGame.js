@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import DiceRoll0 from './Images/DiceRoll0.png';
 
+import ExitImage from './SVG/Exit.svg';
+import ExitFillImage from './SVG/Exit-Fill.svg';
+
 class LocalMultiplayerGame extends Component{
     constructor(props){
         super(props);
@@ -16,6 +19,8 @@ class LocalMultiplayerGame extends Component{
             currentRound: 1,
             isSecondCurrentGo: false,
             shouldChangeRound: false,
+            exitImage: [ExitImage, ExitFillImage],
+            exitImageState: 0,
         }
     }
 
@@ -156,6 +161,10 @@ class LocalMultiplayerGame extends Component{
         }
     }
 
+    onExitGame = () => {
+        window.location.href  =`/`;
+    }
+
     onRollDiceButtonClicked = () => {
         if(this.state.isUsersGoButton){
             this.setState({isUsersGoButton: false});
@@ -167,6 +176,7 @@ class LocalMultiplayerGame extends Component{
         return(
             <div id='localmultiplayergame'>
                 <div id='gameBartop'>
+                    <img onClick={() => this.onExitGame()} onPointerLeave={() => this.setState({exitImageState: 0})} onPointerEnter={() => this.setState({exitImageState: 1})} className="exitButton" src={this.state.exitImage[this.state.exitImageState]}></img>
                     <p id='roundText'>Round {this.state.currentRound}</p>
                 </div>
                 <div id='gameProfilesContainer'>

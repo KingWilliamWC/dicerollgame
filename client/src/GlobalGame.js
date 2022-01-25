@@ -108,7 +108,7 @@ class GlobalGame extends Component{
                 this.state.hasGameFinished ?
                 <EndOfGame routes={this.props.routes} alertPlayAgainHandler={this.alertPlayAgain} socket={this.state.socket} exitGameHandler={this.exitGame} winner={this.state.winner} loser={this.state.loser}/>
                 :
-                <Game endGameHandler={this.endGame} maxRound={5} hostUser={this.state.hostUser} guestUser={this.state.guestUser} socket={this.state.socket}/>
+                <Game endGameHandler={this.endGame} maxRound={1} hostUser={this.state.hostUser} guestUser={this.state.guestUser} socket={this.state.socket}/>
                 :
                 this.state.socket ?
                 <GameJoin gameStartedHandler={this.startGame} socket={this.state.socket}/>

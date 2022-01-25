@@ -58,7 +58,7 @@ class TopTable extends Component{
                                 </tr>
                             </thead>
                             <tbody className="toptableTableTableBody">
-                                {this.state.tableRows.length > 0 ? this.state.tableRows : 'Awating Server...'}
+                                {this.state.tableRows.length > 0 ? this.state.tableRows : <p id='noDatatableText'>No One has finished an online game yet...</p>}
                             </tbody>
                         </table>
                     </div>
