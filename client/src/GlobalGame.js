@@ -41,7 +41,7 @@ class GlobalGame extends Component{
                         this.startGame();
                     })
                 }
-                const socket = io(this.props.routes.gamesocket, {transports:['websocket'], upgrade: false});
+                const socket = io(this.props.routes.gamesocket, {upgrade: false});
                 socket.on('game start', (data) => {
                     this.setState({hostUser: data.hostUser, guestUser: data.guestUser}, () => {
                         this.setState({hasGameStarted: true});

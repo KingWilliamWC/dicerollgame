@@ -24,11 +24,12 @@
     border-radius: 5px;
     transform: translate(-50%,-50%);
     background-color: #484848;
+    display: flex;
 }
 
 #settingsOverlaySidebar{
     background-color: #333333;
-    width: 20%;
+    width: 23%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -85,4 +86,34 @@
 }
 .settingsOverlaySidebarItemRed{
     color: #E94F64;
+}
+
+#settingsOverlayMainContentContainer, #gameHistoryContainer, #accountSettings{
+    width: 100%;
+    height: 100%;
+}
+
+.tabTitle{
+    width: fit-content;
+    /* background-color: #484848; */
+    padding: 20px 40px 10px 0px;
+    color: #E5C451;
+    font-size: 30px;
+    font-family: pierSansBold;
+    transition: all 0.1s;
+}
+
+#gameHistoryContainer{
+    z-index: 103;
+}
+
+.tabUnderline{
+    height: 2px;
+    width: 100%;
+    border: 1px solid #B3B8BC;
+}
+
+#gameHistoryWrapper{
+    width: 90%;
+    margin: 0 auto;
 }

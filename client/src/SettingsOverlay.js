@@ -3,6 +3,9 @@ import axios from "axios";
 
 import './SettingsOverlay.css';
 
+import AccountSettings from "./AccountSettings";
+import GameHistory from "./GameHistory";
+
 class SettingsOverlay extends Component{
     constructor(props){
         super(props);
@@ -13,6 +16,7 @@ class SettingsOverlay extends Component{
                 'settingsOverlaySidebarItem'
             ],
             activeItem: 0,
+            activeTabs: [<AccountSettings/>,<GameHistory/>]
         }
     }
 
@@ -23,6 +27,10 @@ class SettingsOverlay extends Component{
             newsettinsgsOverlayItemClasses[index] = 'settingsOverlaySidebarItemActive';
             this.setState({settinsgsOverlayItemClasses: newsettinsgsOverlayItemClasses, activeItem: index});
         }
+    }
+
+    componentDidMount(){
+        console.log("Get Account");
     }
 
     onSignout = () => {
@@ -51,6 +59,9 @@ class SettingsOverlay extends Component{
                                 <p>Sign out</p>
                             </div>
                         </div>
+                    </div>
+                    <div id='settingsOverlayMainContentContainer'>
+                        {this.state.activeTabs[this.state.activeItem]}
                     </div>
                 </div>
             </div>
