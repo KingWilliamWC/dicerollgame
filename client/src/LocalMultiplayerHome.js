@@ -23,7 +23,7 @@ class LocalMultiplayerHome extends Component{
     render(){
         return(
             <div id='localmultiplayerhome'>
-                <HomeBartop/>
+                <HomeBartop routes={this.props.routes}/>
                 <p className="selectionText">Local Multiplayer</p>
                 <div className='centreButtonsContainer'>
                     <div id='gameJoinInputContainer'>

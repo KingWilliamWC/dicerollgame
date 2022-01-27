@@ -52,7 +52,7 @@ class OnlineHome extends Component{
     render(){
         return(
             <div id='onlinehome'>
-                <HomeBartop/>
+                <HomeBartop routes={this.props.routes}/>
                 <p className="selectionText">Online</p>
                 <div className={this.state.centreButtonsContainerClasses[this.state.isJoiningGame]}>
                     <a onClick={() => this.onStartJoinGame()} className="buttonContainer buttonRed">

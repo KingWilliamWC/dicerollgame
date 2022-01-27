@@ -16,19 +16,30 @@ class HomeBartop extends Component{
             TopTableImages: [topTableSolidSVG, topTableSolidFillSVG],
             TopTableState: 0,
             isOverlay: false,
+            userImage: null,
         }
+    }
+
+    componentDidMount(){
+        var userImage = JSON.parse(sessionStorage.getItem('user')).profileImage;
+        this.setState({userImage: userImage});
     }
 
     toggleShowSettingsOverlay = () => {
         this.state.isOverlay ? this.setState({isOverlay: false}) : this.setState({isOverlay: true});
     }
 
+    updateBartopImage = (newProfileImage) => {
+        console.log(newProfileImage);
+        this.setState({userImage: newProfileImage});
+    }
+
     render(){
         return(
             <div id='homeBartop'>
-                {this.state.isOverlay ? <SettingsOverlay toggleShowHandler={this.toggleShowSettingsOverlay}/> : ''}
+                {this.state.isOverlay ? <SettingsOverlay updateBartopImage={this.updateBartopImage} routes={this.props.routes} toggleShowHandler={this.toggleShowSettingsOverlay}/> : ''}
                 <div id='homeBartopContainer'>
-                    <img onClick={() => this.toggleShowSettingsOverlay()} className='profileImage' src={sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')).profileImage : ''}></img>
+                    <img onClick={() => this.toggleShowSettingsOverlay()} className='profileImage' src={this.state.userImage}></img>
                     <a href="/" id="gameNameText">Dice Roll Game</a>
                     <a href="/toptable">
                         <img id="topTableIcon" src={this.state.TopTableImages[this.state.TopTableState]}/>

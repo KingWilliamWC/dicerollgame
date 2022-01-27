@@ -45,7 +45,7 @@ class TopTable extends Component{
     render(){
         return(
             <div id='toptable'>
-                <HomeBartop/>
+                <HomeBartop routes={this.props.routes}/>
                 <div id='toptableContainer'>
                     <p id="topTableTitleText">Top Table</p>
                     <div id='toptableTableContainer'>

@@ -93,6 +93,10 @@
     height: 100%;
 }
 
+#gameHistoryContainer{
+    overflow-y: auto;
+}
+
 .tabTitle{
     width: fit-content;
     /* background-color: #484848; */
@@ -116,4 +120,109 @@
 #gameHistoryWrapper{
     width: 90%;
     margin: 0 auto;
+}
+
+#gameHistoryContentContainer{
+    display: grid;
+    grid-template-columns: 49% 49%;
+    grid-gap: 2%;
+    row-gap: 30px;
+    margin-top: 20px;
+}
+
+.userHistoryItem{
+    background-color: #333333;
+    height: 185px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* justify-content: center; */
+    border-radius: 5px;
+    padding-top: 10px;
+    /* padding-bottom: 10px; */
+}
+
+.userHistoryItemDate{
+    /* background-color: #484848; */
+    color: #E5C451;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-family: pierSansBold;
+    letter-spacing: 1px;
+    transition: all 0.1s;
+}
+
+.userHistoryItemTitle{
+    color: #B3B8BC;
+    margin-top: 10px;
+    font-size: 18px;
+    font-family: pierSansBold;
+    transition: all 0.1s;
+}
+
+.userHistoryItemUser{
+    color: #B3B8BC;
+    margin-top: 3px;
+    font-size: 18px;
+    font-family: pierSansRegular;
+    transition: all 0.1s;
+}
+
+#accountSettingsContentContainer{
+    margin-top: 20px;
+}
+
+#imageChangeContainer{
+    display: flex;
+    align-items: center;
+}
+
+#userImageChangeImage{
+    width: 135px;
+}
+
+#imageChangeTextButton{
+    color: #46BCDE;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+#imageChangeTextButton:hover{
+    text-decoration: underline;
+}
+
+#usernameEditContent{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#usernameEditTitle{
+    color: #E5C451;
+    margin-top: 20px;
+    font-size: 20px;
+    font-family: pierSansRegular;
+    letter-spacing: 1px;
+    transition: all 0.1s;
+}
+
+#usernameEditPreviewText{
+    color: #B3B8BC;
+    font-size: 25px;
+    font-family: pierSansBold;
+    transition: all 0.1s;
+}
+
+#settingsProfileImageSelect{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 100%;
+    align-items: center;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+#settingsProfileImageSelect::-webkit-scrollbar{
+    display: none;
 }

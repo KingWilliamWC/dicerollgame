@@ -13,7 +13,7 @@ class GameHome extends Component{
     render(){
         return(
             <div id='gameHome'>
-                <HomeBartop/>
+                <HomeBartop routes={this.props.routes}/>
                 <div className='centreButtonsContainer'>
                     <a href="/online" className="buttonContainer buttonRed">
                         <p>Online</p>

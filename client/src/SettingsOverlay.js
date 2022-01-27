@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+
 
 import './SettingsOverlay.css';
 
@@ -16,7 +16,7 @@ class SettingsOverlay extends Component{
                 'settingsOverlaySidebarItem'
             ],
             activeItem: 0,
-            activeTabs: [<AccountSettings/>,<GameHistory/>]
+            activeTabs: [<AccountSettings routes={this.props.routes} updateBartopImage={this.props.updateBartopImage}/>,<GameHistory/>]
         }
     }
 
@@ -27,10 +27,6 @@ class SettingsOverlay extends Component{
             newsettinsgsOverlayItemClasses[index] = 'settingsOverlaySidebarItemActive';
             this.setState({settinsgsOverlayItemClasses: newsettinsgsOverlayItemClasses, activeItem: index});
         }
-    }
-
-    componentDidMount(){
-        console.log("Get Account");
     }
 
     onSignout = () => {
