@@ -226,3 +226,68 @@
 #settingsProfileImageSelect::-webkit-scrollbar{
     display: none;
 }
+
+#noHistoryText{
+    /* width: fit-content; */
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    /* background-color: #484848; */
+    padding: 20px 40px 10px 0px;
+    color: #E5C451;
+    font-size: 20px;
+    font-family: pierSansRegular;
+    transition: all 0.1s;
+}
+
+#editUsernamePreviewContainer{
+    display: flex;
+    align-items: center;
+}
+
+#usernameEditInput{
+    background-color: #333;
+    border: none;
+    color: #b3b8bc;
+    font-family: pierSansRegular;
+    font-size: 20px;
+    height: 40px;
+    width: 300px;
+    outline: none;
+    padding-left: 10px;
+}
+
+.completeButton{
+    align-items: center;
+    background-color: #52d273;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    transition: all .1s;
+    width: 130px;
+}
+
+.cancelButton{
+    align-items: center;
+    background-color: #b3b8bc;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    transition: all .1s;
+    width: 135px;
+}
+
+.buttonRight{
+    margin-left: 20px;
+}
+
+#submitButtons{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 10px;
+}

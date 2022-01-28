@@ -34,7 +34,7 @@ class GameHistory extends Component{
                     <p className="tabTitle">Game History</p>
                     <div className="tabUnderline"></div>
                     <div id='gameHistoryContentContainer'>
-                        {this.state.userHistory.length > 0 ? this.state.userHistory : ''}
+                        {this.state.userHistory.length > 0 ? this.state.userHistory : <p id='noHistoryText'>Finish an online game and it will appear here</p>}
                     </div>
                 </div>
 

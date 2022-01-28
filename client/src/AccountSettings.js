@@ -11,6 +11,7 @@ class AccountSettings extends Component{
         this.state = {
             user: null,
             changeProfileImage: false,
+            changeUsername: false,
         }
     }
 
@@ -28,6 +29,11 @@ class AccountSettings extends Component{
         return await res.data;
     }
 
+    async updateUsername(sendData){
+        const res = await axios.post(this.props.routes.updateusername, sendData);
+        return await res.data;
+    }
+
     onProfileImageEditFinished = (newProfileImage) => {
         var sendData = {
             'id': JSON.parse(sessionStorage.getItem('user'))._id,
@@ -42,6 +48,43 @@ class AccountSettings extends Component{
                 this.props.updateBartopImage(data.user.profileImage);
             }
         })
+    }
+
+    onEditUsername = () => {
+        this.setState({changeUsername: true}, () => {
+            document.getElementById("usernameEditInput").value = this.state.user.username;
+            document.getElementById("usernameEditInput").focus();
+        });
+    }
+
+    onEditUsernameDone = () => {
+        var newUsername = document.getElementById("usernameEditInput").value.trim();
+        if(newUsername.length >= 4 && newUsername !== this.state.user.username){
+            // don't bother if it is not
+            var sendData = {
+            'newUsername': newUsername,
+            'id': this.state.user._id
+            }
+            this.updateUsername(sendData)
+            .then((data) => {
+                if(data.success){
+                    var currentUser = this.state.user;
+                    currentUser.username = data.username;
+                    sessionStorage.setItem('user', JSON.stringify(currentUser));
+                    this.setState({user: currentUser, changeUsername: false});
+                }else{
+                    console.log(data);
+                }
+            })
+        }else if(newUsername === this.state.user.username){
+            this.setState({changeUsername: false});
+        }else{
+            console.log("Should be at least 4 characters");
+        }
+    }
+
+    onEditUsernameCancel = () => {
+        this.setState({changeUsername: false});
     }
 
     // onProfileImageEditFinished = (newProfileImage) => {
@@ -62,8 +105,26 @@ class AccountSettings extends Component{
                         <div id='usernameEditContainer'>
                             <p id='usernameEditTitle'>Username:</p>
                             <div id='usernameEditContent'>
-                                <p id='usernameEditPreviewText'>KingWilliamWC</p>
-                                <p id='imageChangeTextButton'>Edit</p>
+                                {this.state.changeUsername ?
+                                <div id='editUsernameContainer'>
+                                    <p></p>
+                                    <input onKeyPress={(e) => {if(e.key === 'Enter'){this.onEditUsernameDone()}}} autoComplete="off" id='usernameEditInput'></input>
+                                    <div id='submitButtons'>
+                                        <div onClick={() => this.onEditUsernameCancel()} className="cancelButton completeButton">
+                                            <p>Cancel</p>
+                                        </div>
+                                        <div onClick={() => this.onEditUsernameDone()} className="completeButton buttonRight">
+                                            <p>Done</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                :
+                                <div id='editUsernamePreviewContainer'>
+                                    <p id='usernameEditPreviewText'>{this.state.user ? this.state.user.username : ''}</p>
+                                    <p onClick={() => this.onEditUsername()} id='imageChangeTextButton'>Edit</p>
+                                </div>
+                                }
                             </div>
                         </div>
                     </div>

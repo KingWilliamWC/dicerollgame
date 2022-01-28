@@ -1,6 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const res = require('express/lib/response');
 var router = express.Router();
 
 // top table model
@@ -239,7 +240,7 @@ router.get('/toptable', (req, res) => {
   })
 })
 
-router.post('/updateProfileImage', (req, res) => {
+router.post('/updateprofileimage', (req, res) => {
   User.findByIdAndUpdate(req.body.id, {profileImage: req.body.newProfileImage}, {new: true} , (err, result) => {
     if(!err){
       result.password = undefined;
@@ -248,6 +249,26 @@ router.post('/updateProfileImage', (req, res) => {
       res.json({'success': false})
     }
   })
+})
+
+router.post('/updateusername', (req, res) => {
+  // check for duplicates
+  User.find({username: req.body.newUsername}, (err, foundUsernames) => {
+    if(foundUsernames.length === 0){
+      // there are no other usernames with this name
+      User.findByIdAndUpdate({_id: req.body.id}, {username: req.body.newUsername}, {new: true}, (err, result) => {
+        if(!err){
+          res.json({"success": true, "username": result.username});
+        }else{
+          res.json({"success": false});
+          console.log("Error updating username: ", err);
+        }
+      })
+    }else{
+      res.json({"success": false, "reason": "duplicate"});
+    }
+  })
+  // res.end();
 })
 
 module.exports = router;

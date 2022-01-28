@@ -27,6 +27,7 @@ class AppRouter extends Component {
             'signup': `${urlBase}/api/signup`,
             'login': `${urlBase}/api/login`,
             'updateprofileimage': `${urlBase}/api/updateprofileimage`,
+            'updateusername': `${urlBase}/api/updateusername`,
             'gameend': `${urlBase}/api/gameend`,
             'toptabledata': `${urlBase}/api/toptable`,
             'gamesocket': `${urlBase}/`
