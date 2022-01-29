@@ -148,7 +148,7 @@ class VSComputerGame extends Component{
 
     onRollDice = async () => {
         if(this.state.isSecondCurrentGo){
-            var diceRolled1 = this.randomIntFromInterval(1, 1);
+            var diceRolled1 = this.randomIntFromInterval(1, 6);
             this.state.DiceRoll1Image.src = `/diceImages/DiceRoll${diceRolled1}.png`;
             this.state.DiceRoll2Image.src = DiceRoll0;
             if(this.state.isUsersGo){
@@ -173,8 +173,8 @@ class VSComputerGame extends Component{
     
             this.handleActiveUser();
         }else if(!this.state.isSecondCurrentGo && !this.state.playingDraw){
-            var diceRolled1 = this.randomIntFromInterval(1, 1);
-            var diceRolled2 = this.randomIntFromInterval(1, 1);
+            var diceRolled1 = this.randomIntFromInterval(1, 6);
+            var diceRolled2 = this.randomIntFromInterval(1, 6);
             this.state.DiceRoll1Image.src = `/diceImages/DiceRoll${diceRolled1}.png`;
             this.state.DiceRoll2Image.src = `/diceImages/DiceRoll${diceRolled2}.png`;
     
