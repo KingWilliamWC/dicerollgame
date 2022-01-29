@@ -12,6 +12,9 @@ class AccountSettings extends Component{
             user: null,
             changeProfileImage: false,
             changeUsername: false,
+            errorText: ['Username Taken!', 'Username must be at least 4 characters'],
+            errorTextState: 0,
+            errorState: 0,
         }
     }
 
@@ -58,29 +61,34 @@ class AccountSettings extends Component{
     }
 
     onEditUsernameDone = () => {
-        var newUsername = document.getElementById("usernameEditInput").value.trim();
-        if(newUsername.length >= 4 && newUsername !== this.state.user.username){
-            // don't bother if it is not
-            var sendData = {
-            'newUsername': newUsername,
-            'id': this.state.user._id
-            }
-            this.updateUsername(sendData)
-            .then((data) => {
-                if(data.success){
-                    var currentUser = this.state.user;
-                    currentUser.username = data.username;
-                    sessionStorage.setItem('user', JSON.stringify(currentUser));
-                    this.setState({user: currentUser, changeUsername: false});
-                }else{
-                    console.log(data);
+        this.setState({
+            errorTextState: 0,
+            errorState: 0,
+        }, () => {
+            var newUsername = document.getElementById("usernameEditInput").value.trim();
+            if(newUsername.length >= 4 && newUsername !== this.state.user.username){
+                // don't bother if it is not
+                var sendData = {
+                'newUsername': newUsername,
+                'id': this.state.user._id
                 }
-            })
-        }else if(newUsername === this.state.user.username){
-            this.setState({changeUsername: false});
-        }else{
-            console.log("Should be at least 4 characters");
-        }
+                this.updateUsername(sendData)
+                .then((data) => {
+                    if(data.success){
+                        var currentUser = this.state.user;
+                        currentUser.username = data.username;
+                        sessionStorage.setItem('user', JSON.stringify(currentUser));
+                        this.setState({user: currentUser, changeUsername: false});
+                    }else if (data.reason === 'duplicate'){
+                        this.setState({errorState: 1});
+                    }
+                })
+            }else if(newUsername === this.state.user.username){
+                this.setState({changeUsername: false});
+            }else{
+                this.setState({errorState: 1, errorTextState: 1});
+            }
+        })
     }
 
     onEditUsernameCancel = () => {
@@ -107,7 +115,11 @@ class AccountSettings extends Component{
                             <div id='usernameEditContent'>
                                 {this.state.changeUsername ?
                                 <div id='editUsernameContainer'>
-                                    <p></p>
+                                    {this.state.errorState === 1 ?
+                                    <p className="errorText">{this.state.errorText[this.state.errorTextState]}</p>
+                                    :
+                                    ''
+                                    }
                                     <input onKeyPress={(e) => {if(e.key === 'Enter'){this.onEditUsernameDone()}}} autoComplete="off" id='usernameEditInput'></input>
                                     <div id='submitButtons'>
                                         <div onClick={() => this.onEditUsernameCancel()} className="cancelButton completeButton">

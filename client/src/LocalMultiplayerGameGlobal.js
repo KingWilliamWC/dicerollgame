@@ -27,7 +27,7 @@ class LocalMultiplayerGameGlobal extends Component{
     render(){
         return(
             <div>
-                {this.state.gameFinished ? <EndOfGameLocalMultiplayer winner={this.state.winner}/> : <LocalMultiplayerGame maxround={5} gameEndHandler={this.gameEnd}/>}
+                {this.state.gameFinished ? <EndOfGameLocalMultiplayer winner={this.state.winner}/> : <LocalMultiplayerGame maxround={1} gameEndHandler={this.gameEnd}/>}
             </div>
         )
     }

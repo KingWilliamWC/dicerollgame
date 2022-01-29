@@ -243,7 +243,9 @@ router.get('/toptable', (req, res) => {
 router.post('/updateprofileimage', (req, res) => {
   User.findByIdAndUpdate(req.body.id, {profileImage: req.body.newProfileImage}, {new: true} , (err, result) => {
     if(!err){
-      result.password = undefined;
+      if(result.password){
+        result.password = undefined;
+      }
       res.json({'success': true, 'user': result});
     }else{
       res.json({'success': false})

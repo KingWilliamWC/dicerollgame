@@ -6,7 +6,7 @@ import SettingsOverlay from "./SettingsOverlay";
 
 // vectors
 import topTableSolidSVG from './SVG/TopTable-Solid.svg';
-import topTableSolidFillSVG from './SVG/TopTable-Solid.svg';
+import topTableSolidFillSVG from './SVG/TopTable-Solid-Fill.svg';
 
 class HomeBartop extends Component{
     constructor(props){
@@ -41,8 +41,8 @@ class HomeBartop extends Component{
                 <div id='homeBartopContainer'>
                     <img onClick={() => this.toggleShowSettingsOverlay()} className='profileImage' src={this.state.userImage}></img>
                     <a href="/" id="gameNameText">Dice Roll Game</a>
-                    <a href="/toptable">
-                        <img id="topTableIcon" src={this.state.TopTableImages[this.state.TopTableState]}/>
+                    <a onPointerLeave={() => this.setState({TopTableState: 0})} onPointerEnter={() => this.setState({TopTableState: 1})} href="/toptable">
+                        <img id="topTableIcon"  src={this.state.TopTableImages[this.state.TopTableState]}/>
                     </a>
                 </div>
             </div>

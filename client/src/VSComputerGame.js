@@ -24,6 +24,8 @@ class VSComputerGame extends Component{
             isSecondCurrentGo: false,
             exitImage: [ExitImage, ExitFillImage],
             exitImageState: 0,
+            playingDraw: false,
+            shouldCheckDrawEnd: false,
         }
     }
 
@@ -88,9 +90,7 @@ class VSComputerGame extends Component{
     }
 
     onEndGame = async () => {
-        if(this.state.guestUserScore !== this.state.computerUserScore){
-            // the game really has concluded
-            // await this.aiDelay(1000);
+        if(this.state.playingDraw){
             this.state.computerUser.endScore = this.state.computerUserScore;
             this.state.user.endScore = this.state.guestUserScore;
             if(this.state.guestUserScore > this.state.computerUserScore){
@@ -98,7 +98,22 @@ class VSComputerGame extends Component{
             }else{
                 this.props.gameEndHandler(this.state.computerUser, this.state.user);
             }
-
+        }else{
+            if(this.state.guestUserScore !== this.state.computerUserScore){
+                // the game really has concluded
+                // await this.aiDelay(1000);
+                this.state.computerUser.endScore = this.state.computerUserScore;
+                this.state.user.endScore = this.state.guestUserScore;
+                if(this.state.guestUserScore > this.state.computerUserScore){
+                    this.props.gameEndHandler(this.state.user, this.state.computerUser);
+                }else{
+                    this.props.gameEndHandler(this.state.computerUser, this.state.user);
+                }
+    
+            }else{
+                // on game draw
+                this.setState({playingDraw: true, guestUserScore: 0, computerUserScore: 0, currentRound: "Tiebreak"});
+            }
         }
     }
 
@@ -113,10 +128,27 @@ class VSComputerGame extends Component{
         window.location.href = `/`;
     }
 
+    checkDrawEnd = async () => {
+        if(this.state.shouldCheckDrawEnd){
+            if(this.state.guestUserScore !== this.state.computerUserScore){
+                await this.aiDelay(1000);
+                this.onEndGame();
+            }else{
+                console.log("Game draw still equal, we must continue");
+                this.setState({shouldCheckDrawEnd: false});
+            }
+            // }else{
+            //     this.setState({currentRound: this.state.currentRound + 1, shouldChangeRound: false});
+            // }
+        }else{
+            this.setState({shouldCheckDrawEnd: true});
+        }
+    }
+
 
     onRollDice = async () => {
         if(this.state.isSecondCurrentGo){
-            var diceRolled1 = this.randomIntFromInterval(1, 6);
+            var diceRolled1 = this.randomIntFromInterval(1, 1);
             this.state.DiceRoll1Image.src = `/diceImages/DiceRoll${diceRolled1}.png`;
             this.state.DiceRoll2Image.src = DiceRoll0;
             if(this.state.isUsersGo){
@@ -140,9 +172,9 @@ class VSComputerGame extends Component{
             await this.aiDelay(2000);
     
             this.handleActiveUser();
-        }else{
-            var diceRolled1 = this.randomIntFromInterval(1, 6);
-            var diceRolled2 = this.randomIntFromInterval(1, 6);
+        }else if(!this.state.isSecondCurrentGo && !this.state.playingDraw){
+            var diceRolled1 = this.randomIntFromInterval(1, 1);
+            var diceRolled2 = this.randomIntFromInterval(1, 1);
             this.state.DiceRoll1Image.src = `/diceImages/DiceRoll${diceRolled1}.png`;
             this.state.DiceRoll2Image.src = `/diceImages/DiceRoll${diceRolled2}.png`;
     
@@ -185,6 +217,25 @@ class VSComputerGame extends Component{
 
                 this.handleActiveUser();
             }
+        }else{
+            var diceRolled1 = this.randomIntFromInterval(1, 6);
+            this.state.DiceRoll1Image.src = `/diceImages/DiceRoll${diceRolled1}.png`;
+            this.state.DiceRoll2Image.src = DiceRoll0;
+            if(this.state.isUsersGo){
+                console.log(`User rolled: ${diceRolled1}`);
+                this.setState({isSecondCurrentGo: false, guestUserScore: diceRolled1}, () => {
+                    this.checkDrawEnd();
+                });
+            }else{
+                console.log(`Ai rolled: ${diceRolled1}`);
+                this.setState({isSecondCurrentGo: false,computerUserScore: diceRolled1}, () => {
+                    this.checkDrawEnd();
+                });
+            }
+    
+            await this.aiDelay(2000);
+    
+            this.handleActiveUser();
         }
     }
 

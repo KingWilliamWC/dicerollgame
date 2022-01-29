@@ -154,7 +154,7 @@
 
 .userHistoryItemTitle{
     color: #B3B8BC;
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: 18px;
     font-family: pierSansBold;
     transition: all 0.1s;
@@ -290,4 +290,22 @@
     align-items: flex-start;
     justify-content: center;
     margin-top: 10px;
+}
+
+@media only screen and (max-width: 1600px){
+    #settingsOverlayContentContainer{
+        width: 93%;
+    }
+}
+
+@media only screen and (max-width: 1300px){
+    #settingsOverlaySidebar{
+        width: 30%;
+    }
+}
+
+@media only screen and (max-width: 1100px){
+    #settingsOverlaySidebar{
+        width: 40%;
+    }
 }

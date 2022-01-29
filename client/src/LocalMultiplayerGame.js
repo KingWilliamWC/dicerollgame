@@ -21,6 +21,8 @@ class LocalMultiplayerGame extends Component{
             shouldChangeRound: false,
             exitImage: [ExitImage, ExitFillImage],
             exitImageState: 0,
+            playingDraw: false,
+            shouldCheckDrawEnd: false,
         }
     }
 
@@ -88,14 +90,33 @@ class LocalMultiplayerGame extends Component{
                 this.props.gameEndHandler(this.state.player2user, this.state.user);
             }
         }else{
-            console.log("I hate this part");
+            // on game draw
+            this.setState({playingDraw: true, userScore: 0, player2userScore: 0, currentRound: "Tiebreak"})
         }
 
     }
 
+    checkDrawEnd = async () => {
+        if(this.state.shouldCheckDrawEnd){
+            if(this.state.userScore !== this.state.player2userScore){
+                await this.Delay(1000);
+                this.onEndGame();
+            }else{
+                console.log("Game draw still equal, we must continue");
+                this.setState({shouldCheckDrawEnd: false});
+            }
+            // }else{
+            //     this.setState({currentRound: this.state.currentRound + 1, shouldChangeRound: false});
+            // }
+        }else{
+            this.setState({shouldCheckDrawEnd: true});
+        }
+    }
+
     onRollDice = async () => {
         if(this.state.isSecondCurrentGo){
-            var diceRolled1 = this.randomIntFromInterval(1, 6);
+            // this is the second current go
+            var diceRolled1 = this.randomIntFromInterval(1, 1);
             this.state.DiceRoll1Image.src = `/diceImages/DiceRoll${diceRolled1}.png`;
             this.state.DiceRoll2Image.src = DiceRoll0;
             if(this.state.isUsersGo){
@@ -119,9 +140,10 @@ class LocalMultiplayerGame extends Component{
             }
     
             this.handleActiveUser();
-        }else{
-            var diceRolled1 = this.randomIntFromInterval(1, 6);
-            var diceRolled2 = this.randomIntFromInterval(1, 6);
+        }else if(!this.state.isSecondCurrentGo && !this.state.playingDraw){
+            // standard dice roll
+            var diceRolled1 = this.randomIntFromInterval(1, 1);
+            var diceRolled2 = this.randomIntFromInterval(1, 1);
             this.state.DiceRoll1Image.src = `/diceImages/DiceRoll${diceRolled1}.png`;
             this.state.DiceRoll2Image.src = `/diceImages/DiceRoll${diceRolled2}.png`;
 
@@ -158,6 +180,26 @@ class LocalMultiplayerGame extends Component{
                 
                 this.handleActiveUser();
             }
+        }else{
+            // will only run on game draw until difference
+            var diceRolled1 = this.randomIntFromInterval(1, 3);
+            this.state.DiceRoll1Image.src = `/diceImages/DiceRoll${diceRolled1}.png`;
+            this.state.DiceRoll2Image.src = DiceRoll0;
+            if(this.state.isUsersGo){
+                console.log(`User rolled: ${diceRolled1}`);
+                this.setState({isSecondCurrentGo: false, userScore: diceRolled1}, () => {
+                    this.checkDrawEnd();
+                });
+            }else{
+                console.log(`Ai rolled: ${diceRolled1}`);
+                this.setState({isSecondCurrentGo: false, player2userScore: diceRolled1}, () => {
+                    this.checkDrawEnd();
+                });
+            }
+    
+            await this.Delay(2000);
+    
+            this.handleActiveUser();
         }
     }
 
