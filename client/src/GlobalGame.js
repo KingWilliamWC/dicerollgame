@@ -59,6 +59,7 @@ class GlobalGame extends Component{
                 socket.on('game won', (data) => {
                     // console.log("Winner:" + JSON.stringify(data.winner));
                     // console.log("Loser:" + JSON.stringify(data.loser));
+                    //console.log("Game has been won...", data);
                     var date = new Date();
                     var sendData = {
                         'winner': JSON.parse(data.winner),
@@ -69,7 +70,7 @@ class GlobalGame extends Component{
                         // upload game history as host to server
                         this.uploadWinnerScore(sendData)
                         .then((recievedata) => {
-                            console.log(recievedata);
+                            //console.log(recievedata);
                             if(recievedata.success){
                                 this.setState({winner: JSON.parse(data.winner), loser: JSON.parse(data.loser), hasGameFinished: true});
                                 this.saveHistoryToStorage(sendData);
@@ -98,6 +99,10 @@ class GlobalGame extends Component{
     }
 
     endGame = (winner, loser) => {
+        winner.gameHistory = undefined;
+        winner._id = undefined;
+        loser.gameHistory = undefined;
+        loser._id = undefined;
         this.state.socket.emit('game won', {'gameid': sessionStorage.getItem('gameid'), 'winner': JSON.stringify(winner), 'loser': JSON.stringify(loser)})
     }
 

@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 const res = require('express/lib/response');
 var router = express.Router();
 
+// this variable simply will allow us to quickly check if they are in the top table and to change there name accordingly
+var currentTopTable = [];
+
 // top table model
 const topTableSchema = new mongoose.Schema({
   players: Array,
@@ -35,6 +38,15 @@ db.once('open', function(){
           process.exit(1);
         }else{
           console.log("Created new table since we didn't have one");
+        }
+      })
+    }else{
+      topTable.find({}, (err, toptables) => {
+        if(!err){
+          if(toptables.length === 1){
+            currentTopTable = toptables[0].players;
+            console.log(currentTopTable);
+          }
         }
       })
     }
@@ -172,6 +184,8 @@ checkHighScore = (currentTable, winner) => {
     if(err){console.log('error', err)}
     else{
       // console.log("Succesfully updated table: ", result);
+      currentTopTable = result.players;
+      console.log(currentTopTable);
     }
   });
 }
@@ -253,13 +267,49 @@ router.post('/updateprofileimage', (req, res) => {
   })
 })
 
+// on username change, update on the table
+updateTopTableOnNewUsername = (newTable) => {
+  console.log("Start Changing table", newTable);
+  topTable.find({}, (err, foundTopTables) => {
+    if(err){console.log("error finding: ", err)}
+    else{
+      if(foundTopTables.length === 1){
+        console.log(foundTopTables[0]._id);
+        topTable.findByIdAndUpdate(foundTopTables[0]._id, {players: newTable}, {new: true}, (err, newTable) => {
+          if(!err){
+            console.log("Table updated with new username", newTable);
+          }else{
+            console.log(err);
+          }
+        })
+        return {'success': true};
+      }else{
+        // res.json({'success': false, 'reason': 'duplicatetables'});
+        console.log("More than one!");
+        return {'success': false, 'reason': 'duplicate'};
+      }
+    }
+  })
+}
+
 router.post('/updateusername', (req, res) => {
   // check for duplicates
   User.find({username: req.body.newUsername}, (err, foundUsernames) => {
     if(foundUsernames.length === 0){
       // there are no other usernames with this name
+
       User.findByIdAndUpdate({_id: req.body.id}, {username: req.body.newUsername}, {new: true}, (err, result) => {
         if(!err){
+          // update the toptable with the new username changed
+          console.log(`old: ${req.body.currentUsername}\nnew: ${req.body.newUsername}`);
+          for(var i = 0; i < currentTopTable.length; i++){
+            if(currentTopTable[i].username === req.body.currentUsername){
+              currentTopTable[i].username = result.username;
+              updateTopTableOnNewUsername(currentTopTable);
+            }else{
+              console.log("No Match!: ", currentTopTable[i].username);
+            }
+          }
           res.json({"success": true, "username": result.username});
         }else{
           res.json({"success": false});

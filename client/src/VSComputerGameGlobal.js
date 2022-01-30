@@ -27,7 +27,7 @@ class VSComputerGameGlobal extends Component{
     render(){
         return(
             <div>
-                {this.state.gameFinished ? <EndOfGameComputer winner={this.state.winner}/> : <VSComputerGame maxround={1} gameEndHandler={this.gameEnd}/>}
+                {this.state.gameFinished ? <EndOfGameComputer winner={this.state.winner}/> : <VSComputerGame maxround={5} gameEndHandler={this.gameEnd}/>}
             </div>
         )
     }

@@ -101,8 +101,19 @@ const rootSocket = (io) => {
         })
 
         socket.on('game won', (data) => {
-            // console.log(data);
+            console.log(data);
             io.to(data.gameid).emit('game won', (data));
+        })
+
+        socket.on('play tiebreak', (data) => {
+            // console.log(data);
+            console.log("Game playing tiebreak");
+            io.to(data.gameid).emit('play tiebreak', (data));
+        })
+
+        socket.on('tiebreak turn', (data) => {
+            // console.log(data);
+            io.to(data.gameid).emit('tiebreak turn', (data));
         })
 
         socket.on('alert play again', (data) => {

@@ -70,6 +70,7 @@ class AccountSettings extends Component{
                 // don't bother if it is not
                 var sendData = {
                 'newUsername': newUsername,
+                'currentUsername': this.state.user.username,
                 'id': this.state.user._id
                 }
                 this.updateUsername(sendData)

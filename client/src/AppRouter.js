@@ -17,7 +17,7 @@ import LocalMultiplayerGameGlobal from './LocalMultiplayerGameGlobal';
 
 class AppRouter extends Component {
     componentDidMount = () => {
-        // ensure height works on all devices, I hate css
+        // ensure height works on all devices, I hate css...
         document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     }
     render(){

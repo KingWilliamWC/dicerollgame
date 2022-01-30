@@ -13,7 +13,8 @@ class GameHistory extends Component{
         var currentHistory = JSON.parse(sessionStorage.getItem('user')).gameHistory;
         var userHistoryComponents = [];
         if(currentHistory.length > 0){
-            for(var i = 0; i < currentHistory.length; i++){
+            // render them in reverse order
+            for(var i = currentHistory.length - 1; i >= 0; i--){
                 userHistoryComponents.push(
                     <div className="userHistoryItem">
                         <p className='userHistoryItemDate'>{currentHistory[i].gameDateTime}</p>
