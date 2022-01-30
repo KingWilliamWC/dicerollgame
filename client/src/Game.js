@@ -273,21 +273,23 @@ class Game extends Component{
 
     onRollDice = () => {
         if(this.state.isOurGo && this.state.isSecondCurrentGo && !this.state.isPlayingDraw){
-            //console.log("on roll dice");
+            // this is the one roll dice game state
             var diceRolled1 = Math.floor(Math.random() * (6 - 1 + 1) + 1);
             this.props.socket.emit('extra turn', ({"diceRolled1": diceRolled1, 'gameid': sessionStorage.getItem('gameid')}));
         }
         else if(this.state.isOurGo && !this.state.isSecondCurrentGo && !this.state.isPlayingDraw){
-            //only go if it's our turn
+            // this is the multi roll dice game state
             var diceRolled1 = Math.floor(Math.random() * (6 - 1 + 1) + 1);
             var diceRolled2 = Math.floor(Math.random() * (6 - 1 + 1) + 1);
             //console.log(diceRolled1);
             this.props.socket.emit('player turn', ({"diceRolled1": diceRolled1, "diceRolled2": diceRolled2, 'gameid': sessionStorage.getItem('gameid')}));
         }else if(this.state.isPlayingDraw){
+            // this is the one roll tiebreak dice game state
             var diceRolled1 = Math.floor(Math.random() * (6 - 1 + 1) + 1);
             this.props.socket.emit('tiebreak turn', {"diceRolled1": diceRolled1, 'gameid': sessionStorage.getItem('gameid')});
         }else{
-            //console.log("errrr... nothing to do");
+            // this should not happen, we screwed up massively if it did
+            console.log("errrr... nothing to do");
         }
     }
 
