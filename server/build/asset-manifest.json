@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.7864b364.css",
-    "main.js": "/static/js/main.d0f73d92.js",
+    "main.js": "/static/js/main.4b132b14.js",
     "static/media/PierSans-Light.otf": "/static/media/PierSans-Light.d080200f3c214966ba75.otf",
     "static/media/PierSans-Bold.otf": "/static/media/PierSans-Bold.f6f647b44a71e69efb21.otf",
     "static/media/PierSans-Regular.otf": "/static/media/PierSans-Regular.d4fb6ec3f24fa48a3cbb.otf",
@@ -12,10 +12,10 @@
     "static/media/TopTable-Solid.svg": "/static/media/TopTable-Solid.30152d63891cbbd2d99ed2eee5b13eee.svg",
     "static/media/TopTable-Solid-Fill.svg": "/static/media/TopTable-Solid-Fill.ff13f7caab4b36864f1ee960f029922e.svg",
     "main.7864b364.css.map": "/static/css/main.7864b364.css.map",
-    "main.d0f73d92.js.map": "/static/js/main.d0f73d92.js.map"
+    "main.4b132b14.js.map": "/static/js/main.4b132b14.js.map"
   },
   "entrypoints": [
     "static/css/main.7864b364.css",
-    "static/js/main.d0f73d92.js"
+    "static/js/main.4b132b14.js"
   ]
 }
