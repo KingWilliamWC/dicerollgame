@@ -12,7 +12,7 @@ class AccountSettings extends Component{
             user: null,
             changeProfileImage: false,
             changeUsername: false,
-            errorText: ['Username Taken!', 'Username must be at least 4 characters'],
+            errorText: ['Username Taken!', 'Username must be at least 4 characters', "Username can't be longer than 24 characters"],
             errorTextState: 0,
             errorState: 0,
         }
@@ -66,7 +66,8 @@ class AccountSettings extends Component{
             errorState: 0,
         }, () => {
             var newUsername = document.getElementById("usernameEditInput").value.trim();
-            if(newUsername.length >= 4 && newUsername !== this.state.user.username){
+            // console.log(newUsername.length);
+            if(newUsername.length >= 4 && newUsername.length <= 24 && newUsername !== this.state.user.username){
                 // don't bother if it is not
                 var sendData = {
                 'newUsername': newUsername,
@@ -86,8 +87,10 @@ class AccountSettings extends Component{
                 })
             }else if(newUsername === this.state.user.username){
                 this.setState({changeUsername: false});
-            }else{
+            }else if(newUsername.length < 4){
                 this.setState({errorState: 1, errorTextState: 1});
+            }else if(newUsername.length > 24){
+                this.setState({errorState: 1, errorTextState: 2});
             }
         })
     }
@@ -121,7 +124,7 @@ class AccountSettings extends Component{
                                     :
                                     ''
                                     }
-                                    <input onKeyPress={(e) => {if(e.key === 'Enter'){this.onEditUsernameDone()}}} autoComplete="off" id='usernameEditInput'></input>
+                                    <input maxLength={24} onKeyPress={(e) => {if(e.key === 'Enter'){this.onEditUsernameDone()}}} autoComplete="off" id='usernameEditInput'></input>
                                     <div id='submitButtons'>
                                         <div onClick={() => this.onEditUsernameCancel()} className="cancelButton completeButton">
                                             <p>Cancel</p>

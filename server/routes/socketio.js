@@ -1,3 +1,9 @@
+const pm2io = require('@pm2/io');
+
+const realtimeUser = pm2io.metric({
+    name: "Active Websocket Connections",
+    id: "app/websocket/connections"
+});
 function makeid(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -10,7 +16,7 @@ function makeid(length) {
 const rootSocket = (io) => {
     io.on('connection', (socket) => {
         console.log("Connection to server");
-        
+        realtimeUser.inc();
         // Lobby logic
         socket.on('join game', (data) => {
             if(data.gameid.trim().length === 6){
@@ -126,6 +132,7 @@ const rootSocket = (io) => {
         })
 
         socket.on('disconnect', () => {
+            realtimeUser.dec();
             console.log("Disconnection to server");
         })
     })

@@ -32,15 +32,21 @@ class Signup extends Component{
     userSignup = () => {
         this.setState({userNameErrorState: 0, passwordErrorState: 0}, () => {
             var inputError = false;
-            var newUsername = document.getElementById("usernameInput").value;
+            var newUsername = document.getElementById("usernameInput").value.trim();
             var newPassword = document.getElementById("userPassword").value;
             var confirmedPassword = document.getElementById("confirmPassword").value;
-            var newUsernameErrorState = 0; // default to nothing
-            var newPasswordErrorState = 0; // default to nothing
+            var newUsernameErrorState = 0; // default to no error render
+            var newPasswordErrorState = 0;
             var newPasswordErrorTextState = 0;
             var newUserNameErrorTextState = 0;
             if(newUsername.length < 4){
                 newUsernameErrorState = 1;
+                inputError = true;
+            }
+
+            if(newUsername.length > 24){
+                newUsernameErrorState = 1;
+                newUserNameErrorTextState = 2;
                 inputError = true;
             }
             
@@ -48,7 +54,8 @@ class Signup extends Component{
                 newPasswordErrorState = 1;
                 newPasswordErrorTextState = 0;
                 inputError = true;
-            }else if(newPassword !== confirmedPassword){
+            }
+            if(newPassword !== confirmedPassword){
                 newPasswordErrorState = 1;
                 newPasswordErrorTextState = 1;
                 inputError = true;
@@ -100,7 +107,7 @@ class Signup extends Component{
                     <p className="registerTabTitle">Sign Up</p>
                     <div id="loginInputsContainer">
                         <p className={this.state.userNameErrorClasses[this.state.userNameErrorState]}>{this.state.userNameErrorText[this.state.userNameErrorTextState]}</p>
-                        <input maxLength={24} onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} maxLength={24} placeholder="Username" id='usernameInput' className="registerInput"></input>
+                        <input maxLength={24} onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} placeholder="Username" id='usernameInput' className="registerInput"></input>
                         <p className={this.state.passwordErrorClasses[this.state.passwordErrorState]}>{this.state.passwordErrorText[this.state.passwordErrorTextState]}</p>
                         <input onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} type={"password"} placeholder="Password" id="userPassword" className="registerInput registerInputPassword"></input>
                         <input onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} type={"password"} placeholder="Confim password" id='confirmPassword' className="registerInput registerInputPassword"></input>
