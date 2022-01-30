@@ -1,6 +1,6 @@
 const pm2io = require('@pm2/io');
 
-const realtimeUser = pm2io.metric({
+const realtimeUser = pm2io.counter({
     name: "Active Websocket Connections",
     id: "app/websocket/connections"
 });
