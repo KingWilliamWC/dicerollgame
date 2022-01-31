@@ -41,6 +41,11 @@ th{
     color: #E5C451;
     text-align: center;
     font-family: pierSansRegular;
+    position: relative;
+}
+
+.tableText p, .tableTextLight p {
+    transform: translate(0,80%);
 }
 
 .tableTextLight{
@@ -63,6 +68,10 @@ td{
 .toptableTableTableBody{
     position: relative;
     top: 40px;
+}
+
+.rowHighlight{
+    background-color: #504f4f;
 }
 
 #noDatatableText{

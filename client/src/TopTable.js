@@ -11,6 +11,7 @@ class TopTable extends Component{
 
         this.state = {
             tableRows: [],
+            user: null,
         }
     }
 
@@ -22,6 +23,7 @@ class TopTable extends Component{
         if(!sessionStorage.getItem('user')){
             window.location.href = `/login`;
         }else{
+            var user = JSON.parse(sessionStorage.getItem('user'));
             this.getTopTableData()
             .then((data) => {
                 if(data.success){
@@ -29,10 +31,10 @@ class TopTable extends Component{
                     var tableArray = data.topTable.players
                     for(var i = 0; i < tableArray.length; i++){
                         newTableRows.push(
-                            <tr key={i}>
-                            <td className="tableText">{i+1}</td>
-                            <td className="tableText">{tableArray[i].username}</td>
-                            <td className="tableTextLight">{tableArray[i].score}</td>
+                            <tr className={tableArray[i].username === user.username ? 'rowHighlight' : ''} key={i}>
+                            <td className="tableText"><p>{i+1}</p></td>
+                            <td className="tableText"><p>{tableArray[i].username}</p></td>
+                            <td className="tableTextLight"><p>{tableArray[i].score}</p></td>
                             </tr>
                         )
                     }
@@ -49,7 +51,7 @@ class TopTable extends Component{
                 <div id='toptableContainer'>
                     <p id="topTableTitleText">Top Table</p>
                     <div id='toptableTableContainer'>
-                        <table className="toptableTableTable">
+                        <table cellSpacing={0} className="toptableTableTable">
                             <thead>
                                 <tr>
                                 <th>Position</th>
