@@ -25,7 +25,7 @@ class OnlineHome extends Component{
     }
 
     onJoinGame = () => {
-        var userID = document.getElementById("gameIdInput").value
+        var userID = document.getElementById("gameIdInput").value.toLowerCase();
         // check user id input is 6 characters minus whitespace i.e. " "
         if(userID.trim().length === 6){
             // this is to access on join game

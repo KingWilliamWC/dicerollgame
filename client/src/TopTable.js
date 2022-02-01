@@ -11,7 +11,6 @@ class TopTable extends Component{
 
         this.state = {
             tableRows: [],
-            user: null,
         }
     }
 

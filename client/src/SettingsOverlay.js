@@ -34,9 +34,24 @@ class SettingsOverlay extends Component{
         window.location.href  =`/login`;
     }
 
+    onSettingsOverlayKeypress = (event) => {
+        if(event.keyCode === 27){
+            this.props.toggleShowHandler();
+        }
+    }
+
+    componentDidMount(){
+        document.addEventListener("keydown", this.onSettingsOverlayKeypress, false);
+    }
+
+    componentWillUnmount(){
+        // avoid a memory fill... lol thanks brain
+        document.removeEventListener("keydown", this.onSettingsOverlayKeypress, false);
+      }
+
     render(){
         return(
-            <div id='settingsOverlay'>
+            <div onKeyPress={(e) => this.onSettingsOverlayKeypress(e)} id='settingsOverlay'>
                 <div onClick={() => this.props.toggleShowHandler()} id='settingsOverlayBackground'>
 
                 </div>
