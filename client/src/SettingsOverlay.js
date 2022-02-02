@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import 'animate.css';
 
 import './SettingsOverlay.css';
 
@@ -52,10 +53,10 @@ class SettingsOverlay extends Component{
     render(){
         return(
             <div onKeyPress={(e) => this.onSettingsOverlayKeypress(e)} id='settingsOverlay'>
-                <div onClick={() => this.props.toggleShowHandler()} id='settingsOverlayBackground'>
+                <div className="animate__animated animate__fadeIn" onClick={() => this.props.toggleShowHandler()} id='settingsOverlayBackground'>
 
                 </div>
-                <div id='settingsOverlayContentContainer'>
+                <div className="animate__animated animate__fadeIn" id='settingsOverlayContentContainer'>
                     <div id='settingsOverlaySidebar'>
                         <div id='settingsOverlayTopBar'>
                             <div onClick={() => this.onTabClick(0)} className={this.state.settinsgsOverlayItemClasses[0]}>

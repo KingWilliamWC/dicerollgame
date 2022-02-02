@@ -10,6 +10,7 @@
     width: 100%;
     height: 100%;
     z-index: 101;
+    --animate-duration: 0.09s;
 }
 
 #settingsOverlayContentContainer{
@@ -19,6 +20,7 @@
     left: 50%;
     bottom: 0;
     right: 0;
+    --animate-duration: 0.09s;
     width: 80%;
     height: 90%;
     border-radius: 5px;
@@ -220,8 +222,7 @@
     overflow-y: scroll;
     height: 100%;
     align-items: center;
-    margin: 0 auto;
-    width: fit-content;
+    width: 100%;
 }
 
 #settingsProfileImageSelect::-webkit-scrollbar{
@@ -291,6 +292,10 @@
     align-items: flex-start;
     justify-content: center;
     margin-top: 10px;
+}
+
+.profileImagesDisplayContainerSettings{
+    margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 1600px){

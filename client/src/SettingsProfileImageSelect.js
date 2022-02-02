@@ -52,7 +52,7 @@ class SettingsProfileImageSelect extends Component{
                 <a onClick={() => this.props.onFinished(`/ProfileImages/${this.state.currentImageActive + 1}.png`)} className="buttonContainer registerButtonFinishedContainer buttonGreen">
                     <p>Finished</p>
                 </a>
-                <div id='profileImagesDisplayContainer'>
+                <div className="profileImagesDisplayContainerSettings" id='profileImagesDisplayContainer'>
                     {this.state.imagePreviewImages ? this.state.imagePreviewImages : ''}
                 </div>
             </div>
