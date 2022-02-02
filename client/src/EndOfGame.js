@@ -34,14 +34,14 @@ class EndOfGame extends Component{
                     // guest wants to play again
                     this.setState({
                         gamePlayAgainState: 1,
-                        gamePlayAgainText: "Guest wants to play again!",
+                        gamePlayAgainText: `${this.props.guest.username} wants to play again!`,
                         otherPlayerWantsToPlayAgain: true,
                     })
                 }else if(!this.state.isHost && data.isHost){
                     // host wants to play again
                     this.setState({
                         gamePlayAgainState: 1,
-                        gamePlayAgainText: "Host wants to play again!",
+                        gamePlayAgainText: `${this.props.host.username} wants to play again!`,
                         otherPlayerWantsToPlayAgain: true,
                     })
                 }
