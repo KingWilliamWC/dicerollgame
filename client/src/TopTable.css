@@ -84,3 +84,15 @@ td{
     color: #E5C451;
     /* transform: translate(-50%, 0); */
 }
+
+.topTableButtonBack{
+    margin: 0 auto;
+    position: relative;
+    top: 150px;
+}
+
+@media only screen and (max-height: 650px){
+    .topTableButtonBack{
+        top: 100px;
+    }
+}

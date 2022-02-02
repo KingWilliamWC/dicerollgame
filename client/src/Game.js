@@ -326,7 +326,7 @@ class Game extends Component{
                     <img id='dice2' src={DiceRoll0} className="dice"></img>
                 </div>
                 
-                <a onClick={() => this.onRollDice()} className={this.state.isOurGo ? 'buttonContainer buttonGreen' : 'buttonContainer buttonGreen startButtonNotReady'}>
+                <a onClick={() => this.onRollDice()} className={this.state.isOurGo ? 'buttonContainer buttonGreen' : 'buttonContainer buttonGreen gameButtonNotActive'}>
                     <p>Roll Dice</p>
                 </a>
             </div>

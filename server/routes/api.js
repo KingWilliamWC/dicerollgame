@@ -207,7 +207,7 @@ updateHighScore = (winner) => {
 }
 
 updateGameHistory = (data) => {
-  console.log(data);
+  console.log("game history data: ", data);
   // data.gameDateTime = 
   // var ids_to_update = [data.winner._id, data.loser._id];
   // console.log(ids_to_update);

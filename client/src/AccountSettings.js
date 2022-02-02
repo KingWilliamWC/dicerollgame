@@ -46,6 +46,7 @@ class AccountSettings extends Component{
         .then((data) => {
             if(data.success){
                 console.log("Finished updating user profile image");
+                console.log(data);
                 sessionStorage.setItem('user', JSON.stringify(data.user));
                 this.setState({changeProfileImage: false, user: data.user});
                 this.props.updateBartopImage(data.user.profileImage);

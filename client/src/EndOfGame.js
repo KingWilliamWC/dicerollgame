@@ -51,7 +51,7 @@ class EndOfGame extends Component{
                 if(!this.state.exitingGame){
                     this.setState({
                         gamePlayAgainState: 1,
-                        gamePlayAgainText: this.state.isHost ? 'Guest has quit' : 'Host has quit',
+                        gamePlayAgainText: this.state.isHost ? `${this.props.guest.username} has quit` : `${this.props.host.username} has quit`,
                         otherPlayer: false,
                     })
                 }
@@ -82,8 +82,8 @@ class EndOfGame extends Component{
                 this.setState({
                     isWantingToPlayAgain: true,
                     gamePlayAgainState: 1,
-                    gamePlayAgainText: this.state.isHost ? 'Awaiting guest response...' : 'Awaiting host response...',
-                    otherPlayerWantsToPlayAgain: true,
+                    gamePlayAgainText: this.state.isHost ? `Awaiting ${this.props.guest.username}'s response...` : `Awaiting ${this.props.host.username}'s response...`,
+                    otherPlayerWantsToPlayAgain: false,
                 });
                 this.props.alertPlayAgainHandler()
             }else{

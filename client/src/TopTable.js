@@ -64,6 +64,9 @@ class TopTable extends Component{
                         </table>
                     </div>
                 </div>
+                <a href="/" className="buttonContainer buttonRed topTableButtonBack">
+                    <p>Back</p>
+                </a>
             </div>
         )
     }

@@ -269,7 +269,7 @@ class VSComputerGame extends Component{
                     <img id='dice2' src={DiceRoll0} className="dice"></img>
                 </div>
                 
-                <a onClick={() => this.onRollDiceButtonClicked()} className={this.state.isUsersGoButton ? 'buttonContainer buttonGreen' : 'buttonContainer buttonGreen startButtonNotReady'}>
+                <a onClick={() => this.onRollDiceButtonClicked()} className={this.state.isUsersGoButton ? 'buttonContainer buttonGreen' : 'buttonContainer buttonGreen gameButtonNotActive'}>
                     <p>Roll Dice</p>
                 </a>
             </div>

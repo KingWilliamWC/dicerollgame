@@ -100,9 +100,9 @@ class GlobalGame extends Component{
 
     endGame = (winner, loser) => {
         winner.gameHistory = undefined;
-        winner._id = undefined;
+        // winner._id = undefined;
         loser.gameHistory = undefined;
-        loser._id = undefined;
+        // loser._id = undefined;
         this.state.socket.emit('game won', {'gameid': sessionStorage.getItem('gameid'), 'winner': JSON.stringify(winner), 'loser': JSON.stringify(loser)})
     }
 
@@ -124,7 +124,7 @@ class GlobalGame extends Component{
             <div id='globalGameContainer'>
                 {this.state.hasGameStarted ?
                 this.state.hasGameFinished ?
-                <EndOfGame routes={this.props.routes} alertPlayAgainHandler={this.alertPlayAgain} socket={this.state.socket} exitGameHandler={this.exitGame} winner={this.state.winner} loser={this.state.loser}/>
+                <EndOfGame host={this.state.hostUser} guest={this.state.guestUser} routes={this.props.routes} alertPlayAgainHandler={this.alertPlayAgain} socket={this.state.socket} exitGameHandler={this.exitGame} winner={this.state.winner} loser={this.state.loser}/>
                 :
                 <Game endGameHandler={this.endGame} maxRound={5} hostUser={this.state.hostUser} guestUser={this.state.guestUser} socket={this.state.socket}/>
                 :
