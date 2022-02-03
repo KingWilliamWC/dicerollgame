@@ -48,7 +48,7 @@ class TopTable extends Component{
             <div id='toptable'>
                 <HomeBartop routes={this.props.routes}/>
                 <div id='toptableContainer'>
-                    <p id="topTableTitleText">Top Table</p>
+                    <p id="topTableTitleText">Leaderboard</p>
                     <div id='toptableTableContainer'>
                         <table cellSpacing={0} className="toptableTableTable">
                             <thead>
@@ -64,9 +64,12 @@ class TopTable extends Component{
                         </table>
                     </div>
                 </div>
-                <a href="/" className="buttonContainer buttonRed topTableButtonBack">
-                    <p>Back</p>
-                </a>
+                <div className="backButtonContainerTopTable">
+                    <a href="/" className="buttonContainer buttonRed topTableButtonBack">
+                        <p>Back</p>
+                    </a>
+                </div>
+
             </div>
         )
     }

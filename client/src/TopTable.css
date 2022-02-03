@@ -87,12 +87,18 @@ td{
 
 .topTableButtonBack{
     margin: 0 auto;
-    position: relative;
-    top: 150px;
+
 }
 
-@media only screen and (max-height: 650px){
+.backButtonContainerTopTable{
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+/* @media only screen and (max-height: 830px){
     .topTableButtonBack{
         top: 100px;
     }
-}
+} */
