@@ -19,10 +19,10 @@ class TopTable extends Component{
         return await res.data;
     }
     componentDidMount(){
-        if(!sessionStorage.getItem('user')){
+        if(!localStorage.getItem('user')){
             window.location.href = `/login`;
         }else{
-            var user = JSON.parse(sessionStorage.getItem('user'));
+            var user = JSON.parse(localStorage.getItem('user'));
             this.getTopTableData()
             .then((data) => {
                 if(data.success){
@@ -69,7 +69,6 @@ class TopTable extends Component{
                         <p>Back</p>
                     </a>
                 </div>
-
             </div>
         )
     }

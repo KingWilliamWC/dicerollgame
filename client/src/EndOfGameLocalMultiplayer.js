@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class EndOfGameLocalMultiplayer extends Component{
     exitGameSelfHandler = () => {
-        sessionStorage.removeItem('player2user');
+        localStorage.removeItem('player2user');
         window.location.href = `/`;
     }
 

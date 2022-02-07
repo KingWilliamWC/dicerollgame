@@ -75,7 +75,7 @@ class EndOfGame extends Component{
             // go back to the lobby, both come to a formal agreement
             // window.location.href = `/game`
             console.log("Start The Game Again");
-            this.props.socket.emit('play again', {'gameid': sessionStorage.getItem('gameid')});
+            this.props.socket.emit('play again', {'gameid': localStorage.getItem('gameid')});
         }else{
             if(this.state.otherPlayer){
                 // alert them of our wishes to play again
@@ -92,7 +92,7 @@ class EndOfGame extends Component{
                 this.getNewGameID()
                 .then(data => {
                     if(data.success){
-                        sessionStorage.setItem('gameid', data.newGameID);
+                        localStorage.setItem('gameid', data.newGameID);
                         window.location.href = `/game?jointype=create`;
                     }
                 })

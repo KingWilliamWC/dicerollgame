@@ -34,17 +34,17 @@ class VSComputerGame extends Component{
     }
 
     componentDidMount(){
-        if(!sessionStorage.getItem('user')){
+        if(!localStorage.getItem('user')){
             window.location.href = `/login`;
         }else{
             this.setState({DiceRoll1Image: document.getElementById("dice1"), DiceRoll2Image: document.getElementById("dice2")});
             var randomNum = this.randomIntFromInterval(0,1);
             if(randomNum === 1){
                 // the user will be starting
-                this.setState({user: JSON.parse(sessionStorage.getItem('user')), isUsersGoButton: true, isUsersGo: true, activePlayerName: JSON.parse(sessionStorage.getItem('user')).username});
+                this.setState({user: JSON.parse(localStorage.getItem('user')), isUsersGoButton: true, isUsersGo: true, activePlayerName: JSON.parse(localStorage.getItem('user')).username});
             }else{
                 // ai seaborne will be starting
-                this.setState({user: JSON.parse(sessionStorage.getItem('user')), isUsersGo: false, activePlayerName: 'Seaborne (Ai)'}, () =>{
+                this.setState({user: JSON.parse(localStorage.getItem('user')), isUsersGo: false, activePlayerName: 'Seaborne (Ai)'}, () =>{
                     // just get them started
                     this.aiPlay();
                 });

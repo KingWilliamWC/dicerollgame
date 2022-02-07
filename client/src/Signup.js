@@ -74,7 +74,7 @@ class Signup extends Component{
                             this.setState({userNameErrorState: 1, userNameErrorTextState: 1})
                         }
                         if(data.success){
-                            sessionStorage.setItem("user", JSON.stringify(data.user));
+                            localStorage.setItem("user", JSON.stringify(data.user));
                             this.setState({signupState: 1, newUserID: data.id});
                         }
                     })
@@ -94,7 +94,7 @@ class Signup extends Component{
         this.updateProfileImage(sendData)
         .then(data => {
             if(data.success){
-                sessionStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem("user", JSON.stringify(data.user));
                 window.location.href = `/`;
             }
         })

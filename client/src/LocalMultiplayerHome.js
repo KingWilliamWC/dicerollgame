@@ -8,15 +8,15 @@ class LocalMultiplayerHome extends Component{
     }
 
     componentDidMount(){
-        if(!sessionStorage.getItem('user')){
+        if(!localStorage.getItem('user')){
             window.location.href = `/login`;
         }
     }
 
     onJoinGame = () => {
         var newUsername = document.getElementById("player2nameInput").value;
-        if(newUsername.trim().length > 0 && newUsername !== JSON.parse(sessionStorage.getItem('user')).username){
-            sessionStorage.setItem('player2user', JSON.stringify({"username": newUsername, "profileImage": `/ProfileImages/${this.randomIntFromInterval(1, 15)}.png`}));
+        if(newUsername.trim().length > 0 && newUsername !== JSON.parse(localStorage.getItem('user')).username){
+            localStorage.setItem('player2user', JSON.stringify({"username": newUsername, "profileImage": `/ProfileImages/${this.randomIntFromInterval(1, 15)}.png`}));
             window.location.href = `/localmultiplayergame`;
         }
     }

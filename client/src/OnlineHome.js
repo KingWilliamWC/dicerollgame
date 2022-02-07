@@ -16,7 +16,7 @@ class OnlineHome extends Component{
     }
 
     componentDidMount(){
-        if(!sessionStorage.getItem('user')){
+        if(!localStorage.getItem('user')){
             window.location.href = `/login`;
         }
     }
@@ -29,7 +29,7 @@ class OnlineHome extends Component{
         // check user id input is 6 characters minus whitespace i.e. " "
         if(userID.trim().length === 6){
             // this is to access on join game
-            sessionStorage.setItem('gameid', userID);
+            localStorage.setItem('gameid', userID);
             window.location.href = `/game?jointype=join`;
         }
     }
@@ -43,7 +43,7 @@ class OnlineHome extends Component{
         this.getNewGameID()
         .then(data => {
             if(data.success){
-                sessionStorage.setItem('gameid', data.newGameID);
+                localStorage.setItem('gameid', data.newGameID);
                 window.location.href = `/game?jointype=create`;
             }
         })

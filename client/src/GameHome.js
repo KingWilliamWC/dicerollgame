@@ -6,7 +6,7 @@ import './GameHome.css';
 
 class GameHome extends Component{
     componentDidMount(){
-        if(!sessionStorage.getItem('user')){
+        if(!localStorage.getItem('user')){
             window.location.href = `/login`;
         }
     }

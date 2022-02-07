@@ -21,7 +21,7 @@ class HomeBartop extends Component{
     }
 
     componentDidMount(){
-        var userImage = JSON.parse(sessionStorage.getItem('user')).profileImage;
+        var userImage = JSON.parse(localStorage.getItem('user')).profileImage;
         this.setState({userImage: userImage});
     }
 

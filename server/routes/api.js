@@ -89,27 +89,32 @@ const User = mongoose.model('User', userSchema);
 
 
 router.post('/signup', (req, res) => {
-  User.find({username: req.body.username}, (err, foundUsernames) => {
-    if(foundUsernames.length === 0){
-      bcrypt.hash(req.body.password, saltRounds, (err, hashedPassword) => {
-        const newUser = new User({
-          username: req.body.username,
-          password: hashedPassword,
-          profileImage: `/ProfileImages/${randomIntFromInterval(1, 15)}.png`, // random image in case they close before selecting an image
-          gameHistory: [],
-        }).save((err, newUser) => {
-          if(err){res.json({err: 'err'});res.end();}
-          else{
-            newUser.password = undefined; // don't send the password
-            res.json({'success': true, 'user': newUser, 'id': newUser._id});
-          }
+  if(req.body.username.trim().length <= 24 && req.body.username.trim().length >= 4 && req.body.password.length >=4){
+    User.find({username: req.body.username}, (err, foundUsernames) => {
+      if(foundUsernames.length === 0){
+        bcrypt.hash(req.body.password, saltRounds, (err, hashedPassword) => {
+          const newUser = new User({
+            username: req.body.username,
+            password: hashedPassword,
+            profileImage: `/ProfileImages/${randomIntFromInterval(1, 15)}.png`, // random image in case they close before selecting an image
+            gameHistory: [],
+          }).save((err, newUser) => {
+            if(err){res.json({err: 'err'});res.end();}
+            else{
+              newUser.password = undefined; // don't send the password
+              res.json({'success': true, 'user': newUser, 'id': newUser._id});
+            }
+          })
         })
-      })
-    }else{
-      // user already exists
-      res.json({'success': false, 'reason': 'duplicate'});
-    }
-  })
+      }else{
+        // user already exists
+        res.json({'success': false, 'reason': 'duplicate'});
+      }
+    })
+  }else{
+    res.json({'success': false, 'reason': 'inavlid_input'});
+  }
+
 })
 
 router.post('/login', (req, res) => {

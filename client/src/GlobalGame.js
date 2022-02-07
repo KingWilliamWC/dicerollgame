@@ -33,13 +33,13 @@ class GlobalGame extends Component{
 
     saveHistoryToStorage = (newHistory) => {
         // this function simply reduces the requests to the server and instead caches to the storage at client side
-        var currentUser = JSON.parse(sessionStorage.getItem('user'));
+        var currentUser = JSON.parse(localStorage.getItem('user'));
         currentUser.gameHistory.push(newHistory);
-        sessionStorage.setItem('user', JSON.stringify(currentUser));
+        localStorage.setItem('user', JSON.stringify(currentUser));
     }
 
     componentDidMount(){
-        if(!sessionStorage.getItem('user')){
+        if(!localStorage.getItem('user')){
             window.location.href = `/login`;
         }else{
             const url = new URL(window.location.href);
@@ -95,7 +95,7 @@ class GlobalGame extends Component{
     }
 
     startGame = (hostUser, guestUser) => {
-        this.state.socket.emit('game start', {'gameid': sessionStorage.getItem('gameid'), 'hostUser': hostUser, 'guestUser': guestUser});
+        this.state.socket.emit('game start', {'gameid': localStorage.getItem('gameid'), 'hostUser': hostUser, 'guestUser': guestUser});
     }
 
     endGame = (winner, loser) => {
@@ -103,12 +103,12 @@ class GlobalGame extends Component{
         // winner._id = undefined;
         loser.gameHistory = undefined;
         // loser._id = undefined;
-        this.state.socket.emit('game won', {'gameid': sessionStorage.getItem('gameid'), 'winner': JSON.stringify(winner), 'loser': JSON.stringify(loser)})
+        this.state.socket.emit('game won', {'gameid': localStorage.getItem('gameid'), 'winner': JSON.stringify(winner), 'loser': JSON.stringify(loser)})
     }
 
     exitGame = () => {
-        this.state.socket.emit('exit game', {'gameid': sessionStorage.getItem('gameid')});
-        sessionStorage.removeItem('gameid');
+        this.state.socket.emit('exit game', {'gameid': localStorage.getItem('gameid')});
+        localStorage.removeItem('gameid');
         window.location.href = `/`;
     }
 
@@ -116,7 +116,7 @@ class GlobalGame extends Component{
         // this.setState({requestingAgain: true}, () => {
             
         // });
-        this.state.socket.emit('alert play again', {'gameid': sessionStorage.getItem('gameid'), 'isHost': this.state.isHost});
+        this.state.socket.emit('alert play again', {'gameid': localStorage.getItem('gameid'), 'isHost': this.state.isHost});
     }
 
     render(){

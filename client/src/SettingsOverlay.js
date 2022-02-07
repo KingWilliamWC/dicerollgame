@@ -31,7 +31,7 @@ class SettingsOverlay extends Component{
     }
 
     onSignout = () => {
-        sessionStorage.clear();
+        localStorage.clear();
         window.location.href  =`/login`;
     }
 

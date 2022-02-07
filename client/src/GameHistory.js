@@ -10,7 +10,7 @@ class GameHistory extends Component{
         }
     }
     componentDidMount(){
-        var currentHistory = JSON.parse(sessionStorage.getItem('user')).gameHistory;
+        var currentHistory = JSON.parse(localStorage.getItem('user')).gameHistory;
         var userHistoryComponents = [];
         if(currentHistory.length > 0){
             // render them in reverse order

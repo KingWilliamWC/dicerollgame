@@ -86,4 +86,6 @@
 
 .gameButtonNotActive{
     opacity: 0;
+    cursor: auto;
+    user-select: none;
 }

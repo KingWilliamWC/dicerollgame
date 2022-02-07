@@ -31,12 +31,12 @@ class LocalMultiplayerGame extends Component{
     }
 
     componentDidMount(){
-        if(!sessionStorage.getItem('user')){
+        if(!localStorage.getItem('user')){
             window.location.href = `/login`;
-        }else if(!sessionStorage.getItem('player2user')){
+        }else if(!localStorage.getItem('player2user')){
             window.location.href = `/localmultiplayer`;
         }else{
-            this.setState({DiceRoll1Image: document.getElementById("dice1"), DiceRoll2Image: document.getElementById("dice2"), user: JSON.parse(sessionStorage.getItem('user')), player2user: JSON.parse(sessionStorage.getItem('player2user'))}, () => {
+            this.setState({DiceRoll1Image: document.getElementById("dice1"), DiceRoll2Image: document.getElementById("dice2"), user: JSON.parse(localStorage.getItem('user')), player2user: JSON.parse(localStorage.getItem('player2user'))}, () => {
                 var randomNum = this.randomIntFromInterval(0,1);
                 if(randomNum === 1){
                     // the user will be starting

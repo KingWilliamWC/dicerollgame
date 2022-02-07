@@ -31,7 +31,7 @@ class Login extends Component{
             .then(data => {
                 if(data.success){
                     // succesfully signed in
-                    sessionStorage.setItem("user", JSON.stringify(data.user));
+                    localStorage.setItem("user", JSON.stringify(data.user));
                     window.location.href = `/`;
                 }else if(!data.success && data.reason === "invpassword"){
                     // invalid password

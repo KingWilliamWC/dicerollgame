@@ -31,7 +31,7 @@ class Game extends Component{
 
     startGame = () => {
         var randomNum = Math.round(Math.random());
-        this.props.socket.emit('start game', {"randomNum": randomNum, 'gameid': sessionStorage.getItem('gameid')});
+        this.props.socket.emit('start game', {"randomNum": randomNum, 'gameid': localStorage.getItem('gameid')});
     }
     updatePlayerActiveText = () => {
         if(this.state.activePlayerName === this.props.hostUser.username){
@@ -58,10 +58,10 @@ class Game extends Component{
                 this.props.endGameHandler(guestUser, hostUser);
             }else{
                 //("Tiebreak!!");
-                this.props.socket.emit('play tiebreak', {'gameid': sessionStorage.getItem('gameid')});
+                this.props.socket.emit('play tiebreak', {'gameid': localStorage.getItem('gameid')});
             }            
         }else{
-            this.props.socket.emit('next round', {'gameid': sessionStorage.getItem('gameid')});
+            this.props.socket.emit('next round', {'gameid': localStorage.getItem('gameid')});
         }
     }
 
@@ -275,18 +275,18 @@ class Game extends Component{
         if(this.state.isOurGo && this.state.isSecondCurrentGo && !this.state.isPlayingDraw){
             // this is the one roll dice game state
             var diceRolled1 = Math.floor(Math.random() * (6 - 1 + 1) + 1);
-            this.props.socket.emit('extra turn', ({"diceRolled1": diceRolled1, 'gameid': sessionStorage.getItem('gameid')}));
+            this.props.socket.emit('extra turn', ({"diceRolled1": diceRolled1, 'gameid': localStorage.getItem('gameid')}));
         }
         else if(this.state.isOurGo && !this.state.isSecondCurrentGo && !this.state.isPlayingDraw){
             // this is the multi roll dice game state
             var diceRolled1 = Math.floor(Math.random() * (6 - 1 + 1) + 1);
             var diceRolled2 = Math.floor(Math.random() * (6 - 1 + 1) + 1);
             //console.log(diceRolled1);
-            this.props.socket.emit('player turn', ({"diceRolled1": diceRolled1, "diceRolled2": diceRolled2, 'gameid': sessionStorage.getItem('gameid')}));
+            this.props.socket.emit('player turn', ({"diceRolled1": diceRolled1, "diceRolled2": diceRolled2, 'gameid': localStorage.getItem('gameid')}));
         }else if(this.state.isPlayingDraw){
             // this is the one roll tiebreak dice game state
             var diceRolled1 = Math.floor(Math.random() * (6 - 1 + 1) + 1);
-            this.props.socket.emit('tiebreak turn', {"diceRolled1": diceRolled1, 'gameid': sessionStorage.getItem('gameid')});
+            this.props.socket.emit('tiebreak turn', {"diceRolled1": diceRolled1, 'gameid': localStorage.getItem('gameid')});
         }else{
             // this should not happen, we screwed up massively if it did
             console.log("errrr... nothing to do");
@@ -294,7 +294,7 @@ class Game extends Component{
     }
 
     onExitGame = () => {
-        this.props.socket.emit('game force exit', {'gameid': sessionStorage.getItem('gameid')});
+        this.props.socket.emit('game force exit', {'gameid': localStorage.getItem('gameid')});
     }
     render(){
         return(

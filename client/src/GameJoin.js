@@ -50,12 +50,12 @@ class GameJoin extends Component{
     }
 
     createGame = (url) => {
-        this.setState({isHost: true, hostUser: JSON.parse(sessionStorage.getItem('user'))} , () => {
+        this.setState({isHost: true, hostUser: JSON.parse(localStorage.getItem('user'))} , () => {
             // const socket = io(url);
             this.props.socket.on('connect', () => {
                 // check session storage key exists, request to server to create game with previously server generated gameid
-                if(sessionStorage.getItem('gameid') !== null){
-                    this.props.socket.emit('create game', {'gameid': sessionStorage.getItem('gameid')})
+                if(localStorage.getItem('gameid') !== null){
+                    this.props.socket.emit('create game', {'gameid': localStorage.getItem('gameid')})
                 }else{
                     console.log("no id to connect to");
                 }
@@ -81,9 +81,9 @@ class GameJoin extends Component{
             })
     
             this.props.socket.on('user join', (data) => {
-                var userData = JSON.parse(sessionStorage.getItem('user'));
+                var userData = JSON.parse(localStorage.getItem('user'));
                 userData.ready = this.state.isHost ? this.state.isHostUserReady : this.state.isGuestUserReady;
-                this.props.socket.emit('user info', {'user': userData, 'gameid': sessionStorage.getItem('gameid')})
+                this.props.socket.emit('user info', {'user': userData, 'gameid': localStorage.getItem('gameid')})
             })
 
             this.props.socket.on('ready update', (data) => {
@@ -102,8 +102,8 @@ class GameJoin extends Component{
         // const socket = io(url);
         this.props.socket.on('connect', () => {
             // check session storage game id exists
-            if(sessionStorage.getItem('gameid') !== null){
-                this.props.socket.emit('join game', {'username': "William", 'gameid': sessionStorage.getItem('gameid')})
+            if(localStorage.getItem('gameid') !== null){
+                this.props.socket.emit('join game', {'username': "William", 'gameid': localStorage.getItem('gameid')})
             }else{
                 console.log("no id to connect to");
             }
@@ -129,7 +129,7 @@ class GameJoin extends Component{
         })
 
         this.props.socket.on('user join', (data) => {
-            this.props.socket.emit('user info', {'user': JSON.parse(sessionStorage.getItem('user')), 'gameid': sessionStorage.getItem('gameid')})
+            this.props.socket.emit('user info', {'user': JSON.parse(localStorage.getItem('user')), 'gameid': localStorage.getItem('gameid')})
         })
 
         this.props.socket.on('user info', (data) => {
@@ -140,12 +140,12 @@ class GameJoin extends Component{
             this.onReadyUpdate(data);
         })
 
-        this.setState({socket: this.props.socket, guestUser: JSON.parse(sessionStorage.getItem('user'))});
+        this.setState({socket: this.props.socket, guestUser: JSON.parse(localStorage.getItem('user'))});
     }
 
     updateReadyState = () => {
-        this.state.isHost ? this.state.socket.emit('ready update',  {'user': JSON.parse(sessionStorage.getItem('user')), 'ready': !this.state.isHostUserReady, 'gameid': sessionStorage.getItem('gameid')})
-        : this.state.socket.emit('ready update',  {'user': JSON.parse(sessionStorage.getItem('user')), 'ready': !this.state.isGuestUserReady, 'gameid': sessionStorage.getItem('gameid')})
+        this.state.isHost ? this.state.socket.emit('ready update',  {'user': JSON.parse(localStorage.getItem('user')), 'ready': !this.state.isHostUserReady, 'gameid': localStorage.getItem('gameid')})
+        : this.state.socket.emit('ready update',  {'user': JSON.parse(localStorage.getItem('user')), 'ready': !this.state.isGuestUserReady, 'gameid': localStorage.getItem('gameid')})
     }
 
     onStartGame = () => {
@@ -156,9 +156,9 @@ class GameJoin extends Component{
 
     componentDidMount() {
         // check if signed in before continuing
-        if(sessionStorage.getItem('user')){
+        if(localStorage.getItem('user')){
             // set user state for future use, await callback
-            this.setState({user: JSON.parse(sessionStorage.getItem('user'))}, () => {
+            this.setState({user: JSON.parse(localStorage.getItem('user'))}, () => {
                 const url = new URL(window.location.href);
                 if(url.searchParams.get("jointype")){
                     if(url.searchParams.get("jointype") === 'create'){
@@ -176,7 +176,7 @@ class GameJoin extends Component{
     }
 
     onExitGame = () => {
-        this.props.socket.emit('force exit', {'isHost': this.state.isHost, 'gameid': sessionStorage.getItem('gameid')});
+        this.props.socket.emit('force exit', {'isHost': this.state.isHost, 'gameid': localStorage.getItem('gameid')});
     }
 
     render(){
@@ -185,7 +185,7 @@ class GameJoin extends Component{
                 <div id='gameJoinContainer'>
                     <div id='gameJoinTitle'>
                         <img onClick={() => this.onExitGame()} onPointerLeave={() => this.setState({exitImageState: 0})} onPointerEnter={() => this.setState({exitImageState: 1})} className="exitButton" src={this.state.exitImage[this.state.exitImageState]}></img>
-                        <p id='gameIDText'>Game ID: <span id='gameIDValue'>{sessionStorage.getItem('gameid') ? sessionStorage.getItem('gameid') : ''}</span></p>
+                        <p id='gameIDText'>Game ID: <span id='gameIDValue'>{localStorage.getItem('gameid') ? localStorage.getItem('gameid') : ''}</span></p>
                     </div>
                     {this.state.isHost ?
                     <div id='startContainer'>

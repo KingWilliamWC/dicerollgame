@@ -15,7 +15,7 @@ class LocalMultiplayerGameGlobal extends Component{
     }
 
     componentDidMount(){
-        if(!sessionStorage.getItem('user')){
+        if(!localStorage.getItem('user')){
             window.location.href = `/`;
         }
     }

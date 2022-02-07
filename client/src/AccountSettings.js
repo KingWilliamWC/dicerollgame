@@ -19,7 +19,7 @@ class AccountSettings extends Component{
     }
 
     componentDidMount(){
-        var storageUser = JSON.parse(sessionStorage.getItem('user'));
+        var storageUser = JSON.parse(localStorage.getItem('user'));
         this.setState({user: storageUser});
     }
 
@@ -39,7 +39,7 @@ class AccountSettings extends Component{
 
     onProfileImageEditFinished = (newProfileImage) => {
         var sendData = {
-            'id': JSON.parse(sessionStorage.getItem('user'))._id,
+            'id': JSON.parse(localStorage.getItem('user'))._id,
             'newProfileImage': newProfileImage,
         }
         this.updateProfileImage(sendData)
@@ -47,7 +47,7 @@ class AccountSettings extends Component{
             if(data.success){
                 console.log("Finished updating user profile image");
                 console.log(data);
-                sessionStorage.setItem('user', JSON.stringify(data.user));
+                localStorage.setItem('user', JSON.stringify(data.user));
                 this.setState({changeProfileImage: false, user: data.user});
                 this.props.updateBartopImage(data.user.profileImage);
             }
@@ -80,7 +80,7 @@ class AccountSettings extends Component{
                     if(data.success){
                         var currentUser = this.state.user;
                         currentUser.username = data.username;
-                        sessionStorage.setItem('user', JSON.stringify(currentUser));
+                        localStorage.setItem('user', JSON.stringify(currentUser));
                         this.setState({user: currentUser, changeUsername: false});
                     }else if (data.reason === 'duplicate'){
                         this.setState({errorState: 1});
