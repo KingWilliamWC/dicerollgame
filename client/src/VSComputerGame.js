@@ -243,19 +243,19 @@ class VSComputerGame extends Component{
         return(
             <div id='vscomputergame'>
                 <div id='gameBartop'>
-                    <img onClick={() => this.onExitGame()} onPointerLeave={() => this.setState({exitImageState: 0})} onPointerEnter={() => this.setState({exitImageState: 1})} className="exitButton" src={this.state.exitImage[this.state.exitImageState]}></img>
+                    <img alt='exitButton' onClick={() => this.onExitGame()} onPointerLeave={() => this.setState({exitImageState: 0})} onPointerEnter={() => this.setState({exitImageState: 1})} className="exitButton" src={this.state.exitImage[this.state.exitImageState]}></img>
                     <p id='roundText'>Round {this.state.currentRound}</p>
                 </div>
                 <div id='gameProfilesContainer'>
                     <div className="gameProfile gameProfileTop">
-                        <img className="gameProfileImage" src={this.state.user ? this.state.user.profileImage : ''}></img>
+                        <img alt='' className="gameProfileImage" src={this.state.user ? this.state.user.profileImage : ''}></img>
                         <div className="gameProfileNameScoreContainer">
                             <p className="gameProfileName">{this.state.user ? this.state.user.username : ''}</p>
                             <p className="gameProfileScore">{this.state.guestUserScore}</p>
                         </div>
                     </div>
                     <div className="gameProfile">
-                        <img className="gameProfileImage" src={this.state.computerUser ? this.state.computerUser.profileImage : ''}></img>
+                        <img alt='' className="gameProfileImage" src={this.state.computerUser ? this.state.computerUser.profileImage : ''}></img>
                         <div className="gameProfileNameScoreContainer">
                             <p className="gameProfileName">Seaborne (Ai)</p>
                             <p className="gameProfileScore">{this.state.computerUserScore}</p>
@@ -265,8 +265,8 @@ class VSComputerGame extends Component{
                 <p id='turnText'>{this.state.activePlayerName}'s Turn!</p>
                 <p id='doubleText'>{this.state.isSecondCurrentGo ? 'DOUBLE!' : ''} </p>
                 <div id='diceContainer'>
-                    <img id='dice1' src={DiceRoll0} className="dice"></img>
-                    <img id='dice2' src={DiceRoll0} className="dice"></img>
+                    <img alt='' id='dice1' src={DiceRoll0} className="dice"></img>
+                    <img alt='' id='dice2' src={DiceRoll0} className="dice"></img>
                 </div>
                 
                 <a onClick={() => this.onRollDiceButtonClicked()} className={this.state.isUsersGoButton ? 'buttonContainer buttonGreen' : 'buttonContainer buttonGreen gameButtonNotActive'}>

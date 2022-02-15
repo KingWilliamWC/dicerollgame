@@ -36,9 +36,9 @@ class Signup extends Component{
             var newPassword = document.getElementById("userPassword").value;
             var confirmedPassword = document.getElementById("confirmPassword").value;
             var newUsernameErrorState = 0; // default to no error render
-            var newPasswordErrorState = 0;
-            var newPasswordErrorTextState = 0;
-            var newUserNameErrorTextState = 0;
+            var newPasswordErrorState = 0; // default to no error render
+            var newPasswordErrorTextState = 0; // default to no error render
+            var newUserNameErrorTextState = 0; // default to no error render
             if(newUsername.length < 4){
                 newUsernameErrorState = 1;
                 inputError = true;
