@@ -45,9 +45,9 @@
     margin-bottom: 30px;
 }
 
-#loginPassword{
+/* #loginPassword{
     margin-top: 30px;
-}
+} */
 
 .erroTextCenter{
     text-align: center;
@@ -64,7 +64,7 @@
 }
 
 .registerButtonContainer{
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .buttonYellow{

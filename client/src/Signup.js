@@ -34,7 +34,7 @@ class Signup extends Component{
             var inputError = false;
             var newUsername = document.getElementById("usernameInput").value.trim();
             var newPassword = document.getElementById("userPassword").value;
-            var confirmedPassword = document.getElementById("confirmPassword").value;
+            var confirmedPassword = document.getElementById("confirmPasswordInput").value;
             var newUsernameErrorState = 0; // default to no error render
             var newPasswordErrorState = 0; // default to no error render
             var newPasswordErrorTextState = 0; // default to no error render
@@ -110,7 +110,7 @@ class Signup extends Component{
                         <input maxLength={24} onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} placeholder="Username" id='usernameInput' className="registerInput"></input>
                         <p className={this.state.passwordErrorClasses[this.state.passwordErrorState]}>{this.state.passwordErrorText[this.state.passwordErrorTextState]}</p>
                         <input onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} type={"password"} placeholder="Password" id="userPassword" className="registerInput registerInputPassword"></input>
-                        <input onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} type={"password"} placeholder="Confim password" id='confirmPassword' className="registerInput registerInputPassword"></input>
+                        <input onKeyPress={(e) => {if(e.key === 'Enter'){this.userSignup()}}} type={"password"} placeholder="Confim password" id='confirmPasswordInput' className="registerInput registerInputPassword confirmPasswordClass"></input>
                     </div>
                     <a onClick={() => this.userSignup()} className="buttonContainer registerButtonContainer buttonYellow">
                         <p>Sign Up</p>
